@@ -94,7 +94,7 @@ function Hero() {
         animate='visible'
       >
         <ProfileImage
-          src='/assets/images/my_profile.png'
+          src='/images/my_profile.png'
           alt='Profile'
           variants={itemVariants}
         />
