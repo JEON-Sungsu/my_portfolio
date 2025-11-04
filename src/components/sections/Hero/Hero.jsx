@@ -10,59 +10,96 @@ const HeroSection = styled.section`
   justify-content: center;
   align-items: center;
   padding: ${({ theme }) => theme.spacing.xl};
+  padding-top: calc(80px + ${({ theme }) => theme.spacing.xl});
   text-align: center;
   scroll-margin-top: ${({ theme }) => theme.spacing.xl};
 `;
 
-const ProfileImage = styled(motion.img)`
+const ProfileImageWrapper = styled(motion.div)`
+  position: relative;
   width: 200px;
   height: 200px;
-  border-radius: ${({ theme }) => theme.borderRadius.round};
   margin-bottom: ${({ theme }) => theme.spacing.xl};
-  box-shadow: ${({ theme }) => theme.shadow.lg};
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: ${({ theme }) => theme.borderRadius.round};
+    background: ${({ theme }) => theme.gradients.primary};
+    z-index: -1;
+  }
+`;
+
+const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: ${({ theme }) => theme.borderRadius.round};
   object-fit: cover;
 `;
 
-const Greeting = styled(motion.p)`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  color: ${({ theme }) => theme.colors.textLight};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-`;
-
-const Role = styled(motion.h1)`
-  font-size: ${({ theme }) => theme.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+const Title = styled(motion.h1)`
+  font-size: ${({ theme }) => theme.fontSize.xxxxl};
+  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
+  color: ${({ theme }) => theme.colors.white};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  line-height: 1.2;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.xxl};
+    font-size: ${({ theme }) => theme.fontSize.xxxl};
   }
 `;
 
-const Name = styled(motion.h2)`
-  font-size: ${({ theme }) => theme.fontSize.xxl};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.xxl};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.xl};
-  }
+const Highlight = styled.span`
+  background: ${({ theme }) => theme.gradients.text};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 `;
 
-const DescriptionContainer = styled(motion.div)`
-  text-align: left;
-`;
-
-const Description = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
+const Description = styled(motion.p)`
+  max-width: 700px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.colors.textLight};
   line-height: 1.8;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+`;
 
-  &:last-child {
-    margin-bottom: 0;
+const ExperienceSection = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.lg};
+`;
+
+const ExperienceTitle = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  color: ${({ theme }) => theme.colors.white};
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: ${({ theme }) => theme.fontWeight.semibold};
+`;
+
+const TechStack = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.xl};
+  align-items: center;
+`;
+
+const TechIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.gray};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  transition: all ${({ theme }) => theme.transition.fast};
+
+  &:hover {
+    transform: translateY(-4px);
+    background-color: ${({ theme }) => theme.colors.grayDark};
   }
 `;
 
@@ -92,28 +129,37 @@ function Hero() {
         variants={containerVariants}
         initial='hidden'
         animate='visible'
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <ProfileImage
-          src='/images/my_profile.png'
-          alt='Profile'
-          variants={itemVariants}
-        />
-        <Greeting variants={itemVariants}>안녕하세요,</Greeting>
-        <Role variants={itemVariants}>Frontend Developer</Role>
-        <Name variants={itemVariants}>전성수입니다</Name>
-        <DescriptionContainer variants={itemVariants}>
-          <Description>
-            문제를 빠르게 고치는 것보다, 왜 그런 문제가 생겼는지 끝까지 추적하고
-            구조를 개선하는 일에 집중합니다.
-          </Description>
-          <Description>
-            기술은 도구이지만, 운영의 안정성과 팀의 신뢰를 만드는 데 가장 강력한
-            수단이라고 생각합니다.
-          </Description>
-          <Description>
-            작은 개선이 모여 서비스의 품질을 바꾼다고 믿는 개발자입니다.
-          </Description>
-        </DescriptionContainer>
+        <ProfileImageWrapper variants={itemVariants}>
+          <ProfileImage
+            src='/images/my_profile.png'
+            alt='Profile'
+          />
+        </ProfileImageWrapper>
+
+        <Title variants={itemVariants}>
+          안녕하세요.<br />
+          <Highlight>Mobile / Frontend Developer</Highlight><br />
+          전성수 입니다.
+        </Title>
+
+        <Description variants={itemVariants}>
+          문제를 단순히 해결하기보다 다시는 발생하지 않게 만드는 구조적인 개선에 집중합니다.<br />
+          실제 운영 환경에서 얻은 경험을 바탕으로 안정성과 효율을 함께 높이는 개발을 지향합니다.<br />
+          끊임없이 배우고 개선하며 성장하는 과정을 즐깁니다.
+        </Description>
+
+        <ExperienceSection variants={itemVariants}>
+          <ExperienceTitle>Experience With</ExperienceTitle>
+          <TechStack>
+            <TechIcon>JS</TechIcon>
+            <TechIcon>N</TechIcon>
+            <TechIcon>5</TechIcon>
+            <TechIcon>3</TechIcon>
+            <TechIcon>⚛</TechIcon>
+          </TechStack>
+        </ExperienceSection>
       </motion.div>
     </HeroSection>
   );

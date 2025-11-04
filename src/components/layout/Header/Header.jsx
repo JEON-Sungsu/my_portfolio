@@ -8,10 +8,12 @@ const HeaderContainer = styled.header`
   width: 100%;
   padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xl};
   background-color: ${({ $isScrolled, theme }) =>
-    $isScrolled ? theme.colors.white : 'transparent'};
-  box-shadow: ${({ $isScrolled, theme }) =>
-    $isScrolled ? theme.shadow.md : 'none'};
-  transition: all ${({ theme }) => theme.transition.medium};
+    $isScrolled ? theme.colors.gray : 'transparent'};
+  backdrop-filter: ${({ $isScrolled }) => ($isScrolled ? 'blur(10px)' : 'none')};
+  border-bottom: ${({ $isScrolled, theme }) =>
+    $isScrolled ? `1px solid ${theme.colors.grayDark}` : 'none'};
+  transition: background-color ${({ theme }) => theme.transition.medium},
+              backdrop-filter ${({ theme }) => theme.transition.medium};
   z-index: 1000;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -29,14 +31,15 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.a`
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
+  font-style: italic;
 `;
 
 const NavLinks = styled.ul`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.xl};
+  gap: ${({ theme }) => theme.spacing.xxl};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: none;
@@ -46,15 +49,15 @@ const NavLinks = styled.ul`
 const NavLink = styled.a`
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.white};
   transition: color ${({ theme }) => theme.transition.fast};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.gradientStart};
   }
 
   &.active {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.gradientStart};
   }
 `;
 
@@ -82,7 +85,7 @@ function Header() {
             <NavLink href='#projects'>Projects</NavLink>
           </li>
           <li>
-            <NavLink href='#skills'>Skills</NavLink>
+            <NavLink href='#experience'>Experience</NavLink>
           </li>
           <li>
             <NavLink href='#contact'>Contact</NavLink>
