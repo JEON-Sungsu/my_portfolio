@@ -42,7 +42,7 @@ const Title = styled(motion.h1)`
   font-size: ${({ theme }) => theme.fontSize.xxxxl};
   font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   color: ${({ theme }) => theme.colors.white};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
   line-height: 1.2;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -59,7 +59,7 @@ const Highlight = styled.span`
 
 const Description = styled(motion.p)`
   max-width: 700px;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.textLight};
   line-height: 1.8;
   margin-bottom: ${({ theme }) => theme.spacing.xxxl};
@@ -86,20 +86,15 @@ const TechStack = styled.div`
   align-items: center;
 `;
 
-const TechIcon = styled.div`
+const TechIcon = styled.img`
   width: 50px;
   height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.gray};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  object-fit: contain;
   transition: all ${({ theme }) => theme.transition.fast};
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-4px);
-    background-color: ${({ theme }) => theme.colors.grayDark};
   }
 `;
 
@@ -129,35 +124,54 @@ function Hero() {
         variants={containerVariants}
         initial='hidden'
         animate='visible'
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
         <ProfileImageWrapper variants={itemVariants}>
-          <ProfileImage
-            src='/images/my_profile.png'
-            alt='Profile'
-          />
+          <ProfileImage src='/images/my_profile.png' alt='Profile' />
         </ProfileImageWrapper>
 
         <Title variants={itemVariants}>
-          안녕하세요.<br />
-          <Highlight>Mobile / Frontend Developer</Highlight><br />
+          안녕하세요.
+          <br />
+          <Highlight>Frontend Developer</Highlight>
+          <br />
           전성수 입니다.
         </Title>
 
         <Description variants={itemVariants}>
-          문제를 단순히 해결하기보다 다시는 발생하지 않게 만드는 구조적인 개선에 집중합니다.<br />
-          실제 운영 환경에서 얻은 경험을 바탕으로 안정성과 효율을 함께 높이는 개발을 지향합니다.<br />
+          문제를 단순히 해결하기보다 다시는 발생하지 않게 만드는 구조적인 개선에
+          집중합니다.
+          <br />
+          실제 운영 환경에서 얻은 경험을 바탕으로 안정성과 효율을 함께 높이는
+          개발을 지향합니다.
+          <br />
           끊임없이 배우고 개선하며 성장하는 과정을 즐깁니다.
         </Description>
 
         <ExperienceSection variants={itemVariants}>
           <ExperienceTitle>Experience With</ExperienceTitle>
           <TechStack>
-            <TechIcon>JS</TechIcon>
-            <TechIcon>N</TechIcon>
-            <TechIcon>5</TechIcon>
-            <TechIcon>3</TechIcon>
-            <TechIcon>⚛</TechIcon>
+            <TechIcon
+              src='/images/ic_flutter.webp'
+              alt='Flutter'
+              title='Flutter'
+            />
+            <TechIcon src='/images/ic_dart.svg' alt='Dart' title='Dart' />
+            <TechIcon src='/images/ic_react.svg' alt='React' title='React' />
+            <TechIcon
+              src='/images/ic_typescript.png'
+              alt='TypeScript'
+              title='TypeScript'
+            />
+            <TechIcon
+              src='/images/ic_javascript.svg'
+              alt='JavaScript'
+              title='JavaScript'
+            />
           </TechStack>
         </ExperienceSection>
       </motion.div>
