@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
 
 const ContactSection = styled.section`
   width: 100%;
@@ -25,31 +25,6 @@ const SectionTitle = styled(motion.h2)`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-`
-
-const Description = styled(motion.p)`
-  font-size: ${({ theme }) => theme.fontSize.md};
-  color: ${({ theme }) => theme.colors.textLight};
-  line-height: 1.8;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-`
-
-const Email = styled(motion.a)`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  font-size: ${({ theme }) => theme.fontSize.md};
-  color: ${({ theme }) => theme.colors.white};
-  margin-bottom: ${({ theme }) => theme.spacing.xxl};
-  transition: color ${({ theme }) => theme.transition.fast};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.gradientStart};
-  }
-`
-
-const EmailIcon = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.lg};
 `
 
 const SocialLinks = styled(motion.div)`
@@ -102,44 +77,31 @@ function Contact() {
             Contact
           </SectionTitle>
 
-          <Description variants={itemVariants}>
-            Seasoned Full Stack Software Engineer with over 8 years of hands-on experience in designing
-            and implementing robust, scalable, and innovative web solutions. Adept at leveraging a
-            comprehensive skill set encompassing front-end and back-end technologies.
-          </Description>
-
-          <Email
-            href="mailto:abmcodehub@gmail.com"
-            variants={itemVariants}
-          >
-            <EmailIcon>✉</EmailIcon>
-            abmcodehub@gmail.com
-          </Email>
-
           <SocialLinks variants={itemVariants}>
             <SocialIcon
-              href="https://instagram.com"
+              href="https://github.com/JEON-Sungsu"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label="GitHub"
+              title="https://github.com/JEON-Sungsu"
             >
-              <FaInstagram />
+              <FaGithub />
             </SocialIcon>
             <SocialIcon
-              href="https://twitter.com"
+              href="https://www.linkedin.com/in/sungsu-jeon-9abb45201/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Twitter"
+              aria-label="LinkedIn"
+              title="https://www.linkedin.com/in/sungsu-jeon-9abb45201/"
             >
-              <FaTwitter />
+              <FaLinkedin />
             </SocialIcon>
             <SocialIcon
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
+              href="mailto:anagma@naver.com"
+              aria-label="Email"
+              title="anagma@naver.com"
             >
-              <FaYoutube />
+              <FaEnvelope />
             </SocialIcon>
           </SocialLinks>
         </motion.div>
