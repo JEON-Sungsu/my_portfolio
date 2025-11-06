@@ -39,19 +39,6 @@ const ExperienceItem = styled(motion.div)`
   }
 `
 
-const CompanyLogo = styled.div`
-  width: 60px;
-  height: 60px;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  flex-shrink: 0;
-`
-
 const ExperienceContent = styled.div`
   flex: 1;
 `
@@ -65,14 +52,14 @@ const Header = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
 `
 
-const Position = styled.h3`
+const Company = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: ${({ theme }) => theme.spacing.xs};
 `
 
-const Company = styled.span`
+const Position = styled.span`
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.textLight};
 `
@@ -93,26 +80,23 @@ function Experience() {
   const experiences = [
     {
       id: 1,
-      logo: 'G',
-      position: 'Lead Software Engineer',
-      company: 'Google',
-      period: 'Nov 2019 - Present',
+      position: 'Mobile & Frontend Engineer',
+      company: 'MonthlyKitchen',
+      period: '2024.09 - 재직중',
       description: `As a Senior Software Engineer at Google, I played a pivotal role in developing innovative solutions for Google's core search algorithms. Collaborating with a dynamic team of engineers, I contributed to the enhancement of search accuracy and efficiency, optimizing user experiences for millions of users worldwide.`,
     },
     {
       id: 2,
-      logo: '',
-      position: 'Junior Software Engineer',
-      company: 'Apple',
-      period: 'Jan 2016 - Dec 2017',
+      position: 'Frontend Engineer',
+      company: 'SJSofttech',
+      period: '2022.02 - 2023.06',
       description: `During my tenure at Apple, I held the role of Software Architect, where I played a key role in shaping the architecture of mission-critical software projects. Responsible for designing scalable and efficient systems, I provided technical leadership to a cross-functional team.`,
     },
     {
       id: 3,
-      logo: '∞',
-      position: 'Software Engineer',
-      company: 'Meta',
-      period: 'Jan 2017 - Oct 2019',
+      position: 'PM & 웹퍼블리셔',
+      company: '국제영화제',
+      period: '2019.06 - 2021.11',
       description: `At Meta, I served as a Software Engineer, focusing on the design and implementation of backend systems for the social media giant's dynamic platform. Working on projects that involved large-scale data processing and user engagement features, I leveraged my expertise to ensure seamless functionality and scalability.`,
     },
   ]
@@ -138,13 +122,12 @@ function Experience() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
-              <CompanyLogo>{exp.logo}</CompanyLogo>
               <ExperienceContent>
                 <Header>
                   <div>
-                    <Position>
-                      {exp.position} <Company>at {exp.company}</Company>
-                    </Position>
+                    <Company>
+                      {exp.company} <Position>· {exp.position}</Position>
+                    </Company>
                   </div>
                   <Period>{exp.period}</Period>
                 </Header>

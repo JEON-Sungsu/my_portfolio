@@ -12,7 +12,7 @@ import Footer from './components/layout/Footer/Footer';
 // Section components
 import Hero from './components/sections/Hero/Hero';
 import Projects from './components/sections/Projects/Projects';
-import Experience from './components/sections/Skills/Skills';
+import Experience from './components/sections/Experience/Experience';
 import Contact from './components/sections/Contact/Contact';
 
 // Page components
@@ -46,7 +46,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>Frontend Developer Portfolio</title>
+        <title>JEON-Sungsu Portfolio</title>
         <meta name='description' content='프론트엔드 개발자 포트폴리오' />
       </Helmet>
 
