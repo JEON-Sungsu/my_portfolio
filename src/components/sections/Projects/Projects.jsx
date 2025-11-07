@@ -1,22 +1,23 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { motion } from 'framer-motion'
-import IconLabel from '../../common/IconLabel/IconLabel'
-import Badge from '../../common/Badge/Badge'
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import IconLabel from '../../common/IconLabel/IconLabel';
+import Badge from '../../common/Badge/Badge';
+import { projects } from '../../../data/projects';
 
 const ProjectsSection = styled.section`
   width: 100%;
   min-height: 100vh;
-  padding: ${({ theme }) => theme.spacing.xxl} ${({ theme }) => theme.spacing.xl};
+  padding: ${({ theme }) => theme.spacing.xxl}
+    ${({ theme }) => theme.spacing.xl};
   background-color: #1a1a1a;
   scroll-margin-top: ${({ theme }) => theme.spacing.xxl};
-`
+`;
 
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-`
+`;
 
 const SectionTitle = styled(motion.h2)`
   font-size: ${({ theme }) => theme.fontSize.xxxl};
@@ -25,7 +26,7 @@ const SectionTitle = styled(motion.h2)`
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing.xxl};
   text-transform: uppercase;
-`
+`;
 
 const ProjectGrid = styled.div`
   display: grid;
@@ -41,14 +42,14 @@ const ProjectGrid = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 const ProjectCard = styled(motion.div)`
   width: 100%;
   height: 400px;
   perspective: 1000px;
   cursor: pointer;
-`
+`;
 
 const CardInner = styled.div`
   position: relative;
@@ -60,7 +61,7 @@ const CardInner = styled.div`
   ${ProjectCard}:hover & {
     transform: rotateY(180deg);
   }
-`
+`;
 
 const CardFace = styled.div`
   position: absolute;
@@ -69,23 +70,23 @@ const CardFace = styled.div`
   backface-visibility: hidden;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
-`
+`;
 
 const CardFront = styled(CardFace)`
   background-color: #0a0a0a;
-  border: 2px solid #FF6B35;
-`
+  border: 2px solid #ff6b35;
+`;
 
 const CardBack = styled(CardFace)`
   background-color: #0a0a0a;
-  border: 2px solid #FF6B35;
+  border: 2px solid #ff6b35;
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
   padding: ${({ theme }) => theme.spacing.xl};
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.lg};
-`
+`;
 
 const CardFrontContent = styled.div`
   width: 100%;
@@ -96,20 +97,21 @@ const CardFrontContent = styled.div`
   justify-content: space-between;
   padding: ${({ theme }) => theme.spacing.xl};
   position: relative;
-`
+`;
 
 const TopRightBadge = styled.div`
   position: absolute;
   top: ${({ theme }) => theme.spacing.md};
   right: ${({ theme }) => theme.spacing.md};
-`
+`;
 
 const CenterIcon = styled.div`
   flex: 1;
   display: flex;
+  gap: 8px;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const BottomTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.lg};
@@ -117,41 +119,14 @@ const BottomTitle = styled.h3`
   color: ${({ theme }) => theme.colors.textLight};
   text-align: center;
   width: 100%;
-`
-
-const Placeholder = styled.div`
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  position: relative;
-`
-
-const ProjectImage = styled.img`
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-`
-
-const ProjectTitle = styled.h3`
-  font-size: ${({ theme }) => theme.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
-  color: ${({ theme }) => theme.colors.white};
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`
+`;
 
 const BackTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.xxl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: ${({ theme }) => theme.spacing.md};
-`
+`;
 
 const BackLabel = styled.p`
   font-size: ${({ theme }) => theme.fontSize.sm};
@@ -159,19 +134,19 @@ const BackLabel = styled.p`
   margin-bottom: ${({ theme }) => theme.spacing.xs};
   text-transform: uppercase;
   letter-spacing: 1px;
-`
+`;
 
 const BackText = styled.p`
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.colors.white};
   line-height: 1.6;
-`
+`;
 
 const TechStackContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.sm};
-`
+`;
 
 const TechBadge = styled.span`
   padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
@@ -180,37 +155,18 @@ const TechBadge = styled.span`
   font-size: ${({ theme }) => theme.fontSize.xs};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-`
+`;
 
 function Projects() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const projects = [
-    {
-      id: 1,
-      title: 'Power of HTML',
-      subtitle: 'HTML Tutorial',
-      techStack: ['HTML5', 'CSS3', 'JavaScript'],
-      role: 'Frontend Developer',
-      description: 'HTML 기초부터 고급 기술까지 다루는 튜토리얼',
-    },
-    {
-      id: 2,
-      title: 'Unlock CSS Magic',
-      subtitle: 'CSS Tutorial',
-      techStack: ['CSS3', 'SASS', 'Animation'],
-      role: 'UI/UX Developer',
-      description: 'CSS 스타일링과 애니메이션 기법 학습',
-    },
-  ]
-
-  const handleProjectClick = (projectId) => {
-    sessionStorage.setItem('scrollPosition', window.scrollY.toString())
-    navigate(`/project/${projectId}`)
-  }
+  const handleProjectClick = (projectSlug) => {
+    sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    navigate(`/project/${projectSlug}`);
+  };
 
   return (
-    <ProjectsSection id="projects">
+    <ProjectsSection id='projects'>
       <Container>
         <SectionTitle
           initial={{ opacity: 0, y: 20 }}
@@ -224,52 +180,33 @@ function Projects() {
         <ProjectGrid>
           {projects.map((project, index) => (
             <ProjectCard
-              key={project.id}
+              key={project.slug}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              onClick={() => handleProjectClick(project.id)}
+              onClick={() => handleProjectClick(project.slug)}
             >
               <CardInner>
                 <CardFront>
-                  {index === 0 ? (
-                    <CardFrontContent>
-                      <TopRightBadge>
-                        <Badge>React</Badge>
-                      </TopRightBadge>
+                  <CardFrontContent>
+                    <TopRightBadge>
+                      <Badge>{project.badge}</Badge>
+                    </TopRightBadge>
 
-                      <CenterIcon>
+                    <CenterIcon>
+                      {project.icons.map((icon, idx) => (
                         <IconLabel
-                          iconPath="/assets/icons/ic_mobile_web.svg"
-                          label="Mobile web"
-                          size="80px"
+                          key={idx}
+                          iconPath={icon.path}
+                          label={icon.label}
+                          size={icon.size}
                         />
-                      </CenterIcon>
+                      ))}
+                    </CenterIcon>
 
-                      <BottomTitle>Monki QR Order</BottomTitle>
-                    </CardFrontContent>
-                  ) : index === 1 ? (
-                    <CardFrontContent>
-                      <TopRightBadge>
-                        <Badge>Flutter</Badge>
-                      </TopRightBadge>
-
-                      <CenterIcon>
-                        <IconLabel
-                          iconPath="/assets/icons/ic_tablet.svg"
-                          label="Tablet"
-                          size="80px"
-                        />
-                      </CenterIcon>
-
-                      <BottomTitle>Monki Tableorder</BottomTitle>
-                    </CardFrontContent>
-                  ) : (
-                    <Placeholder>
-                      <ProjectTitle>{project.title}</ProjectTitle>
-                    </Placeholder>
-                  )}
+                    <BottomTitle>{project.title}</BottomTitle>
+                  </CardFrontContent>
                 </CardFront>
 
                 <CardBack>
@@ -300,7 +237,7 @@ function Projects() {
         </ProjectGrid>
       </Container>
     </ProjectsSection>
-  )
+  );
 }
 
-export default Projects
+export default Projects;

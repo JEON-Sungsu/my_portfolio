@@ -11,6 +11,7 @@ const HeroSection = styled.section`
   align-items: center;
   padding: ${({ theme }) => theme.spacing.xl};
   padding-top: calc(80px + ${({ theme }) => theme.spacing.xl});
+  padding-bottom: ${({ theme }) => theme.spacing.xxxl};
   text-align: center;
   scroll-margin-top: ${({ theme }) => theme.spacing.xl};
 `;

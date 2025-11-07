@@ -55,7 +55,7 @@ function App() {
         <AppContainer>
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/project/:id' element={<ProjectDetail />} />
+            <Route path='/project/:slug' element={<ProjectDetail />} />
           </Routes>
         </AppContainer>
       </BrowserRouter>
