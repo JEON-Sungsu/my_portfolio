@@ -237,12 +237,16 @@ function ProjectDetail() {
               <InfoValue>{project.period}</InfoValue>
             </InfoItem>
             <InfoItem>
-              <InfoLabel>Role</InfoLabel>
-              <InfoValue>{project.role}</InfoValue>
-            </InfoItem>
-            <InfoItem>
               <InfoLabel>Team</InfoLabel>
               <InfoValue>{project.team}</InfoValue>
+            </InfoItem>
+            <InfoItem>
+              <InfoLabel>OS</InfoLabel>
+              <InfoValue>{project.os}</InfoValue>
+            </InfoItem>
+            <InfoItem>
+              <InfoLabel>Deployment</InfoLabel>
+              <InfoValue>{project.deployment}</InfoValue>
             </InfoItem>
           </InfoGrid>
         </Section>
@@ -251,6 +255,19 @@ function ProjectDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <SectionTitle>Role</SectionTitle>
+          <FeatureList>
+            {project.role.map((roleItem, index) => (
+              <FeatureItem key={index}>{roleItem}</FeatureItem>
+            ))}
+          </FeatureList>
+        </Section>
+
+        <Section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <SectionTitle>Tech Stack</SectionTitle>
           <TechStack>
@@ -263,7 +280,7 @@ function ProjectDetail() {
         <Section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <SectionTitle>Overview</SectionTitle>
           <Description>{project.description}</Description>
@@ -272,7 +289,7 @@ function ProjectDetail() {
         <Section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
           <SectionTitle>Key Features</SectionTitle>
           <FeatureList>
@@ -285,7 +302,7 @@ function ProjectDetail() {
         <Section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
           <SectionTitle>Trouble Shooting</SectionTitle>
           <TroubleShootingList>
@@ -301,14 +318,16 @@ function ProjectDetail() {
           </TroubleShootingList>
         </Section>
 
-        <Section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          <SectionTitle>What I Learned</SectionTitle>
-          <Description>{project.learnings}</Description>
-        </Section>
+        {project.learnings && (
+          <Section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <SectionTitle>What I Learned</SectionTitle>
+            <Description>{project.learnings}</Description>
+          </Section>
+        )}
       </Content>
     </DetailContainer>
   );
