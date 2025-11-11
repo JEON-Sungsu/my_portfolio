@@ -23,9 +23,13 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(npx vercel:*)",
-      "Bash(gh repo create:*)"
+      "Bash(gh repo create:*)",
+      "Bash(test:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "/Users/ssjeon/Desktop/projects/monki_waiting_ceo_app"
+    ]
   }
 }
