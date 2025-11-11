@@ -347,68 +347,37 @@ export const projectDetail = {
     team: '2명 (FE 1, BE 1)',
     os: 'Android, iOS (태블릿/모바일)',
     deployment: 'OTA Update',
-    displayType: 'full', // 'troubleshooting' | 'features' | 'full'
+    displayType: 'features', // 'troubleshooting' | 'features' | 'full'
     description:
       '레스토랑/매장 CEO를 위한 실시간 매장 관리 태블릿/모바일 앱입니다. MQTT 기반 실시간 알림, Pagination 무한 스크롤, OTA 업데이트 등을 통해 효율적인 관리 시스템을 제공합니다.',
     featuresDetail: [
       {
-        title: 'Cursor 기반 Pagination 무한 스크롤',
+        title: '실시간 이벤트 Queue 관리 시스템',
         description:
-          '대기고객 목록을 효율적으로 로드하기 위해 Cursor 기반 Pagination을 구현하고, 중복 로딩 방지 및 상태 관리 최적화를 적용했습니다.',
+          '레스토랑 운영 중 동시다발적으로 발생하는 여러 이벤트(대기 등록, 사용자 취소, 입장처리, 자동 취소)를 Queue 기반으로 순차 처리하여, CEO가 모든 알림을 놓치지 않고 확인할 수 있는 시스템입니다.',
         technicalDetails: [
-          'Cursor 기반 Pagination으로 대용량 데이터 효율적 처리',
-          '_isLoadingMore 플래그로 중복 요청 완전 차단',
-          '중복 데이터 필터링 로직으로 ID 기반 중복 제거',
-          'hasNext 플래그로 불필요한 API 호출 방지',
-          '네트워크 요청 50% 감소, 서버 부하 최적화',
+          'MQTT 메시지, 내부 타이머, 사용자 액션 등 다중 소스 이벤트 통합 관리',
+          '이벤트 Queue 자료구조로 동시 발생 알림 순차 처리',
+          '알림 간 적절한 딜레이로 사용자 인지 시간 확보',
+          '이벤트 발생 순서대로 팝업 알림 표시',
+          '알림 손실 없이 모든 이벤트 전달 보장',
         ],
       },
       {
-        title: 'MQTT 실시간 대기 등록/취소 알림',
-        description:
-          'MQTT 프로토콜을 활용하여 고객의 대기 등록, 취소, 자동 취소를 실시간으로 CEO 앱에 반영합니다.',
+        title: '확장 가능한 아키텍쳐',
+        description: '추가적인 기능 확장을 위하여 Clean Architecture 설계',
         technicalDetails: [
-          'MQTT 토픽별 알림 핸들러 구현 (등록/취소/자동취소)',
-          '선택적 notifyListeners() 호출로 UI 업데이트 최적화',
-          'AppLifecycleState 연동으로 포그라운드 전환 시 자동 새로고침',
-          '등록 시 전체 목록 갱신, 취소 시 개별 업데이트로 효율성 향상',
-          'MQTT 메시지 수신 후 0.5초 이내 UI 반영',
+          'services → repositories → use cases → view models',
+          '의존성 주입만으로도 모듈을 교체할 수 있도록 설계 및 구현',
         ],
       },
       {
-        title: 'OTA 무선 앱 업데이트 시스템',
+        title: '크로스 플랫폼 적응형 아키텍처',
         description:
-          '앱 스토어 없이 서버에서 직접 APK를 다운로드하고 설치할 수 있는 무선 업데이트 시스템입니다.',
+          '화면 크기에 따른 태블릿/모바일 레이아웃을 자동으로 전환합니다.',
         technicalDetails: [
-          '서버 버전 체크 및 현재 버전 비교 자동화',
-          'OTA 다운로드 진행률 실시간 UI 표시',
-          'Android 13+ REQUEST_INSTALL_PACKAGES 권한 처리',
-          '권한 거부 시 AppSettings로 시스템 설정 이동',
-          'AppLifecycleState로 권한 승인 후 자동 재시도',
-        ],
-      },
-      {
-        title: 'Method Channel 기반 디바이스 검증',
-        description:
-          'Flutter와 Kotlin/Swift 간 Method Channel 통신으로 특정 Monki 디바이스에서만 앱이 실행되도록 제한합니다.',
-        technicalDetails: [
-          'Kotlin MethodChannel로 Build.MODEL 조회',
-          'WaitingPlatform 추상 인터페이스로 플랫폼 독립성 확보',
-          'SystemService로 네이티브 기능 캡슐화',
-          '비인가 디바이스는 앱 시작 단계에서 차단',
-          'plugin_platform_interface로 iOS/Android 통일 인터페이스 제공',
-        ],
-      },
-      {
-        title: '태블릿/모바일 반응형 UI',
-        description:
-          'MediaQuery와 ScreenUtil을 활용하여 화면 크기에 따라 태블릿/모바일 레이아웃을 자동으로 전환합니다.',
-        technicalDetails: [
-          'MediaQuery로 768px 기준 태블릿/모바일 레이아웃 분기',
-          'ScreenUtil로 designSize 기준 반응형 크기 계산',
-          'Flexible/Expanded로 동적 레이아웃 구성',
-          '태블릿 가로/세로 회전 지원',
-          'SafeArea 처리로 노치/하단바 영역 안전 처리',
+          'MediaQuery + LayoutBuilder로 기기별 동적 레이아웃 전환',
+          'ScreenUtil 기반 디자인 시스템으로 모든 해상도 일관성 유지',
         ],
       },
     ],
@@ -426,50 +395,32 @@ export const projectDetail = {
       'OTA Update',
       'ScreenUtil',
     ],
-    troubleShooting: [
-      {
-        title: 'MQTT 메시지 수신 후 UI 업데이트 지연',
-        problem:
-          'MQTT로 대기 등록 알림 수신 후 화면에 반영되는데 3~5초 지연이 발생하여 사용자가 새로고침을 여러 번 시도하는 불편함이 발생했습니다.',
-        solution:
-          '선택적 notifyListeners() 호출 시스템을 구현하여 MQTT 수신 시에만 needNotify: true로 UI 업데이트를 트리거하도록 개선했습니다. 또한 AppLifecycleState를 연동하여 앱이 포그라운드로 전환될 때 강제 새로고침을 수행하도록 했습니다.',
-        impact:
-          'MQTT 메시지 수신 후 0.5초 이내 즉시 UI 반영, 사용자 만족도 크게 향상',
-      },
-      {
-        title: 'Pagination 무한 스크롤 중복 데이터 로딩',
-        problem:
-          '스크롤을 빠르게 내릴 때 동일한 데이터가 중복으로 로딩되어 서버 부하와 불필요한 네트워크 요청이 발생했습니다.',
-        solution:
-          '_isLoadingMore 플래그를 도입하여 로딩 중일 때 추가 요청을 차단하고, ID 기반 중복 데이터 필터링 로직을 추가했습니다. hasActiveListNext 플래그로 더 이상 데이터가 없을 때 요청을 방지했습니다.',
-        impact: '중복 데이터 로딩 완전 제거, 네트워크 요청 50% 감소',
-      },
-      {
-        title: 'OTA 업데이트 권한 획득 실패 (Android 13+)',
-        problem:
-          'Android 13 이상에서 REQUEST_INSTALL_PACKAGES 권한이 런타임 권한으로 변경되어 OTA 업데이트 시 PERMISSION_NOT_GRANTED_ERROR가 발생했습니다.',
-        solution:
-          'AppSettings 패키지를 사용해 권한 거부 시 시스템 설정 화면으로 직접 이동하도록 구현했습니다. AppLifecycleState를 모니터링하여 사용자가 권한 승인 후 앱으로 복귀하면 자동으로 업데이트를 재시도하도록 개선했습니다.',
-        impact:
-          'Android 13+ 에서 정상적으로 OTA 업데이트 가능, 업데이트 성공률 100%',
-      },
-      {
-        title: 'Freezed 모델 JSON 역직렬화 에러',
-        problem:
-          "서버에서 null 값을 보낸 경우 \"type 'Null' is not a subtype of type 'int'\" 에러로 앱이 크래시되는 문제가 발생했습니다.",
-        solution:
-          'Freezed 모델에 @Default 어노테이션을 추가하여 기본값을 설정하거나, nullable 타입(int?)으로 변경하여 null 값을 안전하게 처리하도록 개선했습니다.',
-        impact:
-          'JSON 역직렬화 에러 0건, 서버 응답 불안정 상황에서도 안정적 동작',
-      },
-      {
-        title: '태블릿/모바일 반응형 레이아웃 깨짐',
-        problem:
-          '특정 화면 크기에서 UI 요소가 겹치거나 잘리고, 태블릿 회전 시 레이아웃이 붕괴되는 문제가 발생했습니다.',
-        solution:
-          '고정 크기를 모두 ScreenUtil 기반 반응형 크기(w, h, sp, r)로 변경하고, MediaQuery로 태블릿/모바일 레이아웃을 분기 처리했습니다. Flexible/Expanded를 사용해 동적 레이아웃을 구성했습니다.',
-        impact: '모든 화면 크기에서 일관된 UI, 태블릿 가로/세로 회전 완벽 지원',
-      },
-    ],
+    // troubleShooting: [
+    //   {
+    //     title: 'MQTT 메시지 수신 후 UI 알림 처리',
+    //     problem:
+    //       '대기 등록, 사용자 취소, 입장처리, 자동 취소처리 등 여러가지 메세지가 동시다발적으로 발생하는 문제',
+    //     solution:
+    //       'MQTT 메세지, 내부 타이머, 사용자의 동작등 여러 상황에서 발생하는 알림 메세지를 관리하기 위해, 메세지 관리 객체를 별도 분리하여, Queue를 만들어 순서대로 순차적으로 메세지를 처리 할 수 있도록 하였습니다.',
+    //     impact: '이벤트 발생 순서대로 팝업 알림 개선',
+    //   },
+    //   {
+    //     title: 'Pagination 무한 스크롤 중복 데이터 로딩',
+    //     problem:
+    //       '스크롤을 빠르게 내릴 때 동일한 데이터가 중복으로 로딩되어 서버 부하와 불필요한 네트워크 요청이 발생했습니다.',
+    //     solution:
+    //       '_isLoadingMore 플래그를 도입하여 로딩 중일 때 추가 요청을 차단하고, ID 기반 중복 데이터 필터링 로직을 추가했습니다. hasActiveListNext 플래그로 더 이상 데이터가 없을 때 요청을 방지했습니다.',
+    //     impact: '중복 데이터 로딩 완전 제거, 네트워크 요청 50% 감소',
+    //   },
+    //   {
+    //     title: 'OTA 업데이트 권한 획득 실패 (Android 13+)',
+    //     problem:
+    //       'Android 13 이상에서 REQUEST_INSTALL_PACKAGES 권한이 런타임 권한으로 변경되어 OTA 업데이트 시 PERMISSION_NOT_GRANTED_ERROR가 발생했습니다.',
+    //     solution:
+    //       'AppSettings 패키지를 사용해 권한 거부 시 시스템 설정 화면으로 직접 이동하도록 구현했습니다. AppLifecycleState를 모니터링하여 사용자가 권한 승인 후 앱으로 복귀하면 자동으로 업데이트를 재시도하도록 개선했습니다.',
+    //     impact:
+    //       'Android 13+ 에서 정상적으로 OTA 업데이트 가능, 업데이트 성공률 100%',
+    //   },
+    // ],
   },
 };
