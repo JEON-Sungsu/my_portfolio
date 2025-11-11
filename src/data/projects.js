@@ -35,6 +35,21 @@ export const projects = [
     badge: 'Flutter',
     icons: [
       {
+        path: '/assets/icons/ic_tablet.svg',
+        label: 'Tablet',
+        size: '80px',
+      },
+    ],
+    techStack: ['Flutter', 'Dart', 'riverpod', 'MQTT'],
+    role: 'Frontend',
+    description: '대기자 명단 관리 앱',
+  },
+  {
+    slug: 'monki-CEO',
+    title: 'Monki CEO App',
+    badge: 'Flutter',
+    icons: [
+      {
         path: '/assets/icons/ic_mobile.svg',
         label: 'Mobile App',
         size: '80px',
@@ -47,6 +62,6 @@ export const projects = [
     ],
     techStack: ['Flutter', 'Dart', 'riverpod', 'MQTT'],
     role: 'Frontend',
-    description: '대기자 명단 관리 앱',
+    description: '매장 관리자 앱',
   },
 ];
