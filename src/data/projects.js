@@ -27,22 +27,7 @@ export const projects = [
     ],
     techStack: ['Flutter', 'Dart', 'Provider', 'Android'],
     role: 'Frontend',
-    description: '안드로이드 태블릿 기반 테이블 주문 앱',
-  },
-  {
-    slug: 'monki-waitlist',
-    title: 'Monki Waitlist',
-    badge: 'Flutter',
-    icons: [
-      {
-        path: '/assets/icons/ic_tablet.svg',
-        label: 'Tablet',
-        size: '80px',
-      },
-    ],
-    techStack: ['Flutter', 'Dart', 'riverpod', 'MQTT'],
-    role: 'Frontend',
-    description: '대기자 명단 관리 앱',
+    description: 'Android Custom Device 기반 테이블 주문 어플리케이션',
   },
   {
     slug: 'monki-CEO',
@@ -62,6 +47,51 @@ export const projects = [
     ],
     techStack: ['Flutter', 'Dart', 'riverpod', 'MQTT'],
     role: 'Frontend',
-    description: '매장 관리자 앱',
+    description: '모바일 매장관리 어플리케이션',
+  },
+  {
+    slug: 'monki-waitlist',
+    title: 'Monki Waitlist',
+    badge: 'Flutter',
+    icons: [
+      {
+        path: '/assets/icons/ic_tablet.svg',
+        label: 'Tablet',
+        size: '80px',
+      },
+    ],
+    techStack: ['Flutter', 'Dart', 'riverpod', 'MQTT'],
+    role: 'Frontend',
+    description: '레스토랑 대기자 등록 어플리케이션',
+  },
+  {
+    slug: 'monki-home-launcher',
+    title: 'Monki Home Launcher',
+    badge: 'Flutter',
+    icons: [
+      {
+        path: '/assets/icons/ic_tablet.svg',
+        label: 'Tablet',
+        size: '80px',
+      },
+    ],
+    techStack: ['Flutter', 'Dart', 'MethodChannel', 'Android'],
+    role: 'Frontend',
+    description: 'Android Custom Device 홈 어플리케이션',
+  },
+  {
+    slug: 'monki-pay-plugin',
+    title: 'Monki Pay Plugin',
+    badge: 'Flutter Plugin',
+    icons: [
+      {
+        path: '/assets/icons/ic_code_block.svg',
+        label: 'Plugin',
+        size: '80px',
+      },
+    ],
+    techStack: ['Flutter', 'Dart', 'MethodChannel', 'Java', 'Kotlin'],
+    role: 'Frontend',
+    description: '통합 결제 모듈 플러그인',
   },
 ];

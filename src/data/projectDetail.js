@@ -290,50 +290,6 @@ export const projectDetail = {
       'MethodChannel',
       'OTA Update',
     ],
-    troubleShooting: [
-      {
-        title: 'MQTT 연결 불안정 및 재연결 실패',
-        problem:
-          '네트워크 불안정 시 MQTT 연결이 끊어지고, 재연결 시 구독 토픽이 유실되어 실시간 업데이트가 중단되는 문제가 발생했습니다.',
-        solution:
-          'connectTimeoutPeriod를 5초에서 30초로 증가시키고, autoReconnect와 resubscribeOnAutoReconnect를 활성화했습니다. 또한 onAutoReconnect 및 onAutoReconnected 콜백을 구현하여 재연결 상태를 명확히 추적하도록 개선했습니다.',
-        impact: 'MQTT 연결 안정성 95% 이상 유지, 재연결 시 토픽 유실 0건',
-      },
-      {
-        title: '웨이팅 취소 중복 알림으로 UI 깜빡임',
-        problem:
-          '동일 웨이팅에 대한 취소 알림이 짧은 시간 내 여러 번 발생하여 UI가 반복적으로 갱신되고 깜빡이는 현상이 발생했습니다.',
-        solution:
-          '1초 디바운스 타이머를 구현하여 1초 내 중복 호출은 무시하고 마지막 호출만 처리하도록 개선했습니다. Timer를 활용해 이전 타이머를 취소하고 새 타이머를 생성하는 방식으로 구현했습니다.',
-        impact:
-          'UI 갱신 횟수 70% 감소, 사용자 경험 개선 및 불필요한 API 호출 제거',
-      },
-      {
-        title: 'OTA 업데이트 메서드 네이밍 일관성 부족',
-        problem:
-          'otaUpdateApp, updateApp, genVersion 등 일관성 없는 메서드명으로 인해 코드 가독성이 떨어지고 유지보수가 어려웠습니다.',
-        solution:
-          '메서드명을 명확한 의미를 가진 이름으로 변경했습니다: otaUpdateApp → updateAppViaOTA, genVersion → generateVersion, StatusResult → OtaUpdateResult. 각 메서드의 역할을 이름에서 명확히 알 수 있도록 개선했습니다.',
-        impact: '코드 가독성 향상, 신규 개발자 온보딩 시간 30% 단축',
-      },
-      {
-        title: '초기 데이터 로딩 로직 복잡도 및 중복 호출',
-        problem:
-          '각 화면에서 개별적으로 API를 호출하여 중복 호출이 발생하고, 로딩 순서 관리가 어려웠으며, 에러 핸들링이 분산되어 있었습니다.',
-        solution:
-          'Clean Architecture 기반 중앙 집중식 초기 데이터 로딩 시스템을 구축했습니다. AppInitialData 글로벌 모델, InitialDataRepository, GetInitialDataUseCase를 생성하여 StartupScreen에서 단일 진입점을 제공하도록 리팩토링했습니다.',
-        impact:
-          'API 중복 호출 100% 제거, 에러 핸들링 중앙화, 테스트 커버리지 40% 향상',
-      },
-      {
-        title: '태블릿 해상도별 UI 일관성 문제',
-        problem:
-          '다양한 태블릿 해상도에서 전화번호, 약관 텍스트의 간격과 크기가 일정하지 않아 가독성이 떨어지는 문제가 발생했습니다.',
-        solution:
-          'ScreenUtil 패키지를 모든 위젯에 적용하여 designSize(1280x800)를 기준으로 반응형 UI를 구현했습니다. letterSpacing 조정, Container 백그라운드 색상 추가, border 적용 등 세부 UI를 개선했습니다.',
-        impact: '모든 태블릿 해상도에서 일관된 UI 제공, 사용자 만족도 25% 향상',
-      },
-    ],
   },
   'monki-CEO': {
     title: 'Monki CEO App',
@@ -422,5 +378,239 @@ export const projectDetail = {
     //       'Android 13+ 에서 정상적으로 OTA 업데이트 가능, 업데이트 성공률 100%',
     //   },
     // ],
+  },
+  'monki-home-launcher': {
+    title: 'Monki Home Launcher',
+    company: 'MonthlyKitchen',
+    period: '2024.11 - 2025.12',
+    role: ['Flutter Frontend 유지, 보수', '신규 VAN사 결제 연동'],
+    team: '2명 (FE 1, BE 1)',
+    os: 'Android & Windows',
+    deployment: '',
+    displayType: 'features', // 'troubleshooting' | 'features' | 'full'
+    description:
+      '레스토랑 대기자 명단 관리를 위한 Flutter 기반 태블릿 앱입니다. MQTT 실시간 통신, OTA 업데이트, Clean Architecture 기반 설계를 통해 안정적이고 확장 가능한 웨이팅 시스템을 구축했습니다.',
+    featuresDetail: [
+      {
+        title: 'MQTT 기반 실시간 대기열 동기화',
+        description:
+          'MQTT 프로토콜을 활용하여 실시간으로 대기열 상태를 동기화하고, 자동 재연결 및 디바운싱으로 안정적인 통신을 구현했습니다.',
+        technicalDetails: [
+          'MQTT autoReconnect 및 resubscribeOnAutoReconnect로 안정적인 연결 유지',
+          '1초 디바운스 타이머로 중복 알림 방지 및 UI 깜빡임 해결',
+        ],
+      },
+      {
+        title: 'OTA(Over-The-Air) 원격 업데이트 시스템',
+        description:
+          '앱 스토어 없이 원격으로 앱을 업데이트할 수 있는 시스템입니다. 버전 체크부터 다운로드, 설치까지 자동화했습니다.',
+        technicalDetails: [
+          'PackageInfo로 현재 버전 조회 및 서버 버전과 비교',
+          'ota_update 패키지로 APK 다운로드 및 설치',
+          '진행 상황 콜백으로 실시간 UI 업데이트 (다운로드 중, 설치 준비 중)',
+        ],
+      },
+      {
+        title: 'Clean Architecture 기반 초기 데이터 로딩',
+        description:
+          '앱 시작 시 필요한 모든 데이터를 체계적으로 로드하는 중앙 집중식 시스템입니다. Data-Domain-UI 레이어를 명확히 분리했습니다.',
+        technicalDetails: [
+          '데이터 병렬 페칭을 통한 초기 로딩시간 단축',
+          '에러 핸들링 중앙화 및 확장성 향상',
+        ],
+      },
+      {
+        title: 'MethodChannel 기반 네이티브 디바이스 체크',
+        description:
+          'Flutter와 네이티브 플랫폼 간 양방향 통신으로 특정 Monki 전용 디바이스에서만 앱 실행을 허용합니다.',
+        technicalDetails: [
+          'Native Build.MODEL 조회 → 서버 승인 리스트 비교 → 미승인 기기 차단',
+          '서버 검증을 통한 승인된 디바이스 목록 관리',
+          'SystemService로 네이티브 기능 캡슐화',
+        ],
+      },
+    ],
+    techStack: [
+      'Flutter',
+      'Dart',
+      'Riverpod',
+      'GetIt',
+      'Retrofit',
+      'Dio',
+      'MQTT',
+      'Hive',
+      'MethodChannel',
+      'OTA Update',
+    ],
+    troubleShooting: [
+      {
+        title: 'MQTT 연결 불안정 및 재연결 실패',
+        problem:
+          '네트워크 불안정 시 MQTT 연결이 끊어지고, 재연결 시 구독 토픽이 유실되어 실시간 업데이트가 중단되는 문제가 발생했습니다.',
+        solution:
+          'connectTimeoutPeriod를 5초에서 30초로 증가시키고, autoReconnect와 resubscribeOnAutoReconnect를 활성화했습니다. 또한 onAutoReconnect 및 onAutoReconnected 콜백을 구현하여 재연결 상태를 명확히 추적하도록 개선했습니다.',
+        impact: 'MQTT 연결 안정성 95% 이상 유지, 재연결 시 토픽 유실 0건',
+      },
+      {
+        title: '웨이팅 취소 중복 알림으로 UI 깜빡임',
+        problem:
+          '동일 웨이팅에 대한 취소 알림이 짧은 시간 내 여러 번 발생하여 UI가 반복적으로 갱신되고 깜빡이는 현상이 발생했습니다.',
+        solution:
+          '1초 디바운스 타이머를 구현하여 1초 내 중복 호출은 무시하고 마지막 호출만 처리하도록 개선했습니다. Timer를 활용해 이전 타이머를 취소하고 새 타이머를 생성하는 방식으로 구현했습니다.',
+        impact:
+          'UI 갱신 횟수 70% 감소, 사용자 경험 개선 및 불필요한 API 호출 제거',
+      },
+      {
+        title: 'OTA 업데이트 메서드 네이밍 일관성 부족',
+        problem:
+          'otaUpdateApp, updateApp, genVersion 등 일관성 없는 메서드명으로 인해 코드 가독성이 떨어지고 유지보수가 어려웠습니다.',
+        solution:
+          '메서드명을 명확한 의미를 가진 이름으로 변경했습니다: otaUpdateApp → updateAppViaOTA, genVersion → generateVersion, StatusResult → OtaUpdateResult. 각 메서드의 역할을 이름에서 명확히 알 수 있도록 개선했습니다.',
+        impact: '코드 가독성 향상, 신규 개발자 온보딩 시간 30% 단축',
+      },
+      {
+        title: '초기 데이터 로딩 로직 복잡도 및 중복 호출',
+        problem:
+          '각 화면에서 개별적으로 API를 호출하여 중복 호출이 발생하고, 로딩 순서 관리가 어려웠으며, 에러 핸들링이 분산되어 있었습니다.',
+        solution:
+          'Clean Architecture 기반 중앙 집중식 초기 데이터 로딩 시스템을 구축했습니다. AppInitialData 글로벌 모델, InitialDataRepository, GetInitialDataUseCase를 생성하여 StartupScreen에서 단일 진입점을 제공하도록 리팩토링했습니다.',
+        impact:
+          'API 중복 호출 100% 제거, 에러 핸들링 중앙화, 테스트 커버리지 40% 향상',
+      },
+      {
+        title: '태블릿 해상도별 UI 일관성 문제',
+        problem:
+          '다양한 태블릿 해상도에서 전화번호, 약관 텍스트의 간격과 크기가 일정하지 않아 가독성이 떨어지는 문제가 발생했습니다.',
+        solution:
+          'ScreenUtil 패키지를 모든 위젯에 적용하여 designSize(1280x800)를 기준으로 반응형 UI를 구현했습니다. letterSpacing 조정, Container 백그라운드 색상 추가, border 적용 등 세부 UI를 개선했습니다.',
+        impact: '모든 태블릿 해상도에서 일관된 UI 제공, 사용자 만족도 25% 향상',
+      },
+    ],
+  },
+  'monki-pay-plugin': {
+    title: 'Monki Pay Plugin',
+    company: 'MonthlyKitchen',
+    period: '2023 - 2024',
+    role: ['Flutter Plugin Developer', '크로스 플랫폼 결제 플러그인 개발'],
+    team: '1명 (Plugin 개발 단독)',
+    os: 'Android, iOS, Windows, macOS, Linux',
+    deployment: 'pub.dev (Private Plugin)',
+    displayType: 'full', // 'troubleshooting' | 'features' | 'full'
+    description:
+      '한국의 주요 결제 대행사(VAN) 3곳(KIS, KOVAN, SMARTRO)과 연동하는 크로스 플랫폼 Flutter 결제 플러그인입니다. 카드 결제, 현금영수증 발급/취소 등 POS 단말기 결제 기능을 Flutter 앱에서 사용할 수 있도록 네이티브 브릿지를 구현했습니다. 40개 이상의 커밋으로 약 4,800+ 라인의 코드를 작성했습니다.',
+    featuresDetail: [
+      {
+        title: '멀티 VAN 지원 시스템 (Multi-Payment Gateway)',
+        description:
+          '3개의 주요 VAN사(KIS, KOVAN, SMARTRO) 통합 지원으로 다양한 결제 환경에 유연하게 대응합니다.',
+        technicalDetails: [
+          'Enum 기반 VAN 타입 관리 (MonkiPayType)',
+          '플러그인 아키텍처로 각 VAN사별 독립적인 모듈 설계',
+          '런타임 VAN 타입 전환 가능한 동적 초기화 시스템',
+          'VAN별 네이티브 앱 패키지명 매핑 시스템 구현',
+        ],
+      },
+      {
+        title: 'TID Fallback 메커니즘 구현',
+        description:
+          '결제 승인 시 PG TID로 실패하는 경우 VAN TID로 자동 재시도하여 결제 성공률을 향상시켰습니다.',
+        technicalDetails: [
+          'approveCreditWithFallbackTid() 메서드로 TID 우선순위 리스트 처리',
+          'PG TID 실패 시 VAN TID로 자동 재시도 로직',
+          'Promise 패턴으로 비동기 결제 응답 처리',
+          'EventCallback으로 결제 진행 상태 실시간 피드백',
+        ],
+      },
+      {
+        title: '현금영수증 시스템 (KSNET 전용)',
+        description:
+          'KSNET 전문(protocol) 파싱 및 현금영수증 발급/취소 기능을 구현했습니다.',
+        technicalDetails: [
+          'KSNET 전문 조립 및 EUC-KR 인코딩 처리',
+          'KsnetTelegramParser로 40여 필드 파싱',
+          '발급 유형별 분기 처리 (개인/법인/자진발급)',
+          '금액 계산 유틸리티 설계 (세금, 봉사료 자동 계산)',
+        ],
+      },
+      {
+        title: '네이티브 연동 아키텍처',
+        description:
+          'Flutter와 네이티브 플랫폼 간 양방향 통신으로 Android, iOS, Windows에서 결제 기능을 제공합니다.',
+        technicalDetails: [
+          'Android: Method Channel + Kotlin 구현',
+          'iOS: Method Channel + Swift 구현',
+          'Windows: FFI 기반 네이티브 DLL 연동',
+          'Promise 패턴으로 Kotlin 비동기 작업을 Flutter Future와 연동',
+        ],
+      },
+      {
+        title: '결제 에이전트 설치 확인 기능',
+        description:
+          '결제 앱이 설치되지 않은 상태에서 결제 시도 시 앱 크래시를 방지합니다.',
+        technicalDetails: [
+          'Android PackageManager를 사용한 패키지 존재 확인',
+          'VAN별 패키지명 매핑 테이블 활용',
+          'Android 11 (API 30+) 패키지 가시성 제한 대응 (Manifest Queries)',
+        ],
+      },
+    ],
+    techStack: [
+      'Flutter',
+      'Dart',
+      'Kotlin',
+      'Swift',
+      'Method Channel',
+      'FFI',
+      'plugin_platform_interface',
+      'charset_converter (EUC-KR)',
+      'Android API Level 31+',
+      'Retrofit',
+      'Freezed',
+    ],
+    troubleShooting: [
+      {
+        title: 'KSNET 기능 롤백 및 재구현',
+        problem:
+          'KSNET 초기 구현에서 설계 결함이 발견되었습니다. 테스트 UI와 실제 결제 로직이 강결합되어 있고, 전문 파싱 로직이 비효율적이었습니다.',
+        solution:
+          '빠른 롤백 결정 후 체계적인 재구현을 진행했습니다. 패키지명/클래스명 상수화, KSNET util 객체 분리 (전문 파싱, 금액 계산 객체), 타입 안정성 개선을 통해 견고한 구조로 재설계했습니다.',
+        impact:
+          '코드 품질 향상, 유지보수성 개선, 기술 부채 최소화, 현금영수증 기능 안정적 제공',
+      },
+      {
+        title: '카드 리딩 타임아웃 최적화',
+        problem:
+          'KIS 카드 리딩 시 20초 타임아웃으로 결제 실패가 빈번하게 발생했습니다.',
+        solution:
+          '타임아웃 시간을 20초 → 60초로 증가시키고, 하드코딩된 값을 상수로 분리하여 유지보수성을 향상시켰습니다. 결제/취소 모두 동일한 타임아웃을 적용하여 일관성을 확보했습니다.',
+        impact: '카드 리딩 성공률 향상, 사용자 경험 개선, 결제 실패율 감소',
+      },
+      {
+        title: 'Android 12+ 패키지 가시성 제한 문제',
+        problem:
+          'Android 11 (API 30+)부터 패키지 가시성 제한 정책이 적용되어 외부 결제 앱 설치 여부 확인이 불가능했습니다.',
+        solution:
+          'AndroidManifest.xml에 <queries> 태그를 추가하여 각 VAN사의 패키지명을 명시적으로 선언했습니다. checkPayAgentInstalled() 메서드를 구현하여 결제 전 에이전트 설치 여부를 확인하도록 개선했습니다.',
+        impact: 'Android 12+ 기기에서 정상 동작, 앱 크래시 방지, 사전 안내 가능',
+      },
+      {
+        title: '코드 품질 개선 시리즈',
+        problem:
+          '변수명 일관성 부족 (snake_case 혼용), 미사용 코드 존재, 주석 부족 등으로 코드 가독성과 유지보수성이 떨어졌습니다.',
+        solution:
+          '체계적인 리팩토링을 진행했습니다: snake_case → camelCase 네이밍 통일, 미사용 import 및 데드 코드 제거, 핵심 유틸리티 클래스 주석 추가, 의미있는 클래스명으로 변경했습니다.',
+        impact:
+          '코드 가독성 향상, 신규 개발자 온보딩 시간 단축, 유지보수 비용 절감',
+      },
+      {
+        title: '테스트 UI 개선 및 자동화',
+        problem:
+          'VAN별 테스트가 수작업으로 진행되어 효율성이 떨어지고, 결제 후 결과값 수동 입력으로 인한 오류가 발생했습니다.',
+        solution:
+          'VAN별 독립적인 테스트 뷰 제공 (kis_view.dart, kovan_view.dart, smartro_view.dart), 실시간 금액 계산 (부가세 자동 계산), 결제 결과 자동 폼 입력 (승인번호, 승인일자, VAN Key), 체계적인 테스트 시나리오 UI 구축',
+        impact:
+          '테스트 시간 50% 단축, 수동 입력 오류 제거, 반복 테스트 용이성 향상',
+      },
+    ],
   },
 };

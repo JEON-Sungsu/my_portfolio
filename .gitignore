@@ -30,3 +30,7 @@ dist-ssr
 .vercel
 
 docs
+claudedocs
+.playwright-mcp
+.claude
+ref_datas

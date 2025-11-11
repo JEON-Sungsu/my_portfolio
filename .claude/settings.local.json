@@ -24,7 +24,14 @@
       "Bash(git commit:*)",
       "Bash(npx vercel:*)",
       "Bash(gh repo create:*)",
-      "Bash(test:*)"
+      "mcp__playwright__browser_wait_for",
+      "Bash(git checkout:*)",
+      "Bash(npm run dev)",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_evaluate",
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": [],
