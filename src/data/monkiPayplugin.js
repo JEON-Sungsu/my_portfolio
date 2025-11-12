@@ -13,7 +13,7 @@ export const monkiPaypluginData = {
   deployment: '사내 패키지 레포 + POS 단말 배포',
   displayType: 'full',
   description:
-    '국내 VAN 3사(KIS, KOVAN, SMARTRO)와 연동해 카드/현금영수증 결제, 취소, 에이전트 설치 검증을 제공하는 크로스 플랫폼 Flutter 플러그인입니다. MethodChannel·FFI·Manifest Queries를 모두 다루며 POS 단말기 수준의 안정성을 확보했습니다.',
+    '국내 VAN 3사(KIS, KOVAN, SMARTRO)와 연동해 카드/현금영수증 결제, 취소,   MethodChannel·FFI·Manifest Queries를 모두 다루며 POS 단말기 수준의 안정성을 확보했습니다.',
   features: [
     'Multi-VAN 아키텍처 (플러그인 레벨에서 VAN 전환)',
     '카드 결제/취소 + TID Fallback + VAN Key 취소',
@@ -25,7 +25,7 @@ export const monkiPaypluginData = {
     {
       title: 'Multi VAN & 플랫폼 인터페이스',
       description:
-        'MonkiPayPluginPlatform 추상화와 각 VAN별 구현체(KisVcat, KovanVcat, SmartroVcat)로 런타임 전환 가능한 결제 엔진을 설계했습니다.',
+        'MonkiPayPluginPlatform 추상화와 각 VAN별 구현체로 런타임 전환 가능한 결제 엔진입니다.',
       technicalDetails: [
         'plugin_platform_interface 기반 크로스 플랫폼 추상화',
         'MonkiPayType enum과 패키지 매핑으로 동적 초기화',
@@ -69,7 +69,8 @@ export const monkiPaypluginData = {
         'checkPayAgentInstalled API로 VAN 에이전트 설치 여부 사전 검증',
         'KIS 카드 리딩 타임아웃 20→60초, 상수 분리로 일관성 확보',
       ],
-      problem: '결제 에이전트 미설치나 짧은 타임아웃으로 인해 크래시/실패가 빈번했습니다.',
+      problem:
+        '결제 에이전트 미설치나 짧은 타임아웃으로 인해 크래시/실패가 빈번했습니다.',
       solution:
         '패키지 가시성 쿼리와 설치 체크 API를 추가하고, 타임아웃을 상수화해 시나리오별로 조정했습니다.',
       impact: '결제 크래시 제로화, 리딩 실패율 대폭 감소.',
@@ -101,7 +102,5 @@ export const monkiPaypluginData = {
     'Fallback TID 도입 후 결제 성공률 체감 상승',
     '타임아웃 조정으로 카드 리딩 실패율 급감',
   ],
-  links: [
-    { label: '포트폴리오 문서', path: './MONKI_PAY_PLUGIN.md' },
-  ],
+  links: [{ label: '포트폴리오 문서', path: './MONKI_PAY_PLUGIN.md' }],
 };

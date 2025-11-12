@@ -212,9 +212,9 @@ export const projectDetail = {
       {
         title: '주문누락 개선',
         problem:
-          '테이블오더에서 결제를 진행시, 외부 에이전트가 활성화 되면서 앱이 백그라운드로 전환되는 경우가 있었습니다. 이로 인해 에이전트에서 결제정보를 받지 못해 결제는 완료되었으나, 사용자는 앱이 종료되었다고 생각하여, 기기를 재부팅하는 상황이 발생했고, 테이블오더에서 결제 결과를 수신하지 못하여 주문누락 이슈가 발생했습니다.',
+          '테이블오더에서 결제를 진행시, 외부 에이전트가 활성화 되면서 앱이 백그라운드로 전환되는 경우가 있었습니다. 이로 인해 VAN 결제 에이전트에서 결제는 완료되었으나 Flutter engine이 멈추고, 비동기로 수신하는 결제정보를 받지 못하는 상황에서, 사용자는 앱이 종료되었다고 생각하여, 기기를 재부팅하는 상황이 발생했고, 결제 데이터가 손실되어 결제는 이뤄졌으나, 주문이 접수되지 못하는 이슈가 발생했습니다.',
         solution:
-          'AppLifecycleState를 활용하여 앱이 백그라운드로 전환될 때 Home Launcher 로 Boradcast 통신을 보내고, 이를 수신한 Home Launcher가 앱을 포그라운드로 복귀시키는 방식을 구현했습니다. 이를 통해 백그라운드 전환 상황에서도 앱이 다시 복귀시켜 정상적으로 동작하도록 개선했습니다.',
+          'AppLifecycleState를 활용하여 앱이 백그라운드로 전환될 때 Home Launcher 로 Boradcast 통신을 보내고, 이를 수신한 Home Launcher가 앱이 백그라운드로 내려갔음을 알리고, 포그라운드로 전환시킬 수 있는 버튼을 제공하게 하여 유저가 인지할 수 있도록 하였습니다. 이를 통해 백그라운드 전환 상황에서도 앱을 복귀시켜 정상적으로 동작하도록 개선했습니다.',
         impact: '월 평균 5건의 주문누락 이슈를 평균 1건 이하로 개선',
       },
       {
@@ -380,110 +380,177 @@ export const projectDetail = {
     // ],
   },
   'monki-home-launcher': {
-    title: 'Monki Home Launcher',
+    title: 'Monki Table Order Home Launcher',
     company: 'MonthlyKitchen',
-    period: '2024.11 - 2025.12',
-    role: ['Flutter Frontend 유지, 보수', '신규 VAN사 결제 연동'],
-    team: '2명 (FE 1, BE 1)',
-    os: 'Android & Windows',
-    deployment: '',
-    displayType: 'features', // 'troubleshooting' | 'features' | 'full'
+    period: '2024.10 - 2025.06',
+    role: [
+      'Flutter Frontend 단독 개발',
+      '홈런처 UX 설계 및 히든 어드민 워크플로우 구축',
+      'Tableorder 업데이트 자동화 파이프라인 구축',
+    ],
+    team: '1명 (단독 개발)',
+    os: 'Android Tablet',
+    deployment: 'OTA Update, Private Store',
+    displayType: 'full', // 'troubleshooting' | 'features' | 'full'
     description:
-      '레스토랑 대기자 명단 관리를 위한 Flutter 기반 태블릿 앱입니다. MQTT 실시간 통신, OTA 업데이트, Clean Architecture 기반 설계를 통해 안정적이고 확장 가능한 웨이팅 시스템을 구축했습니다.',
+      'Monthly Kitchen의 테이블 주문 시스템을 위한 Android 기반 홈런처 애플리케이션입니다. 매장용 안드로이드 패드를 홈런처 형태로 커스터마이징하여 테이블오더 앱, 결제 에이전트, 디바이스 설정을 일원화된 경험으로 제공합니다. 한국(KR)과 미국(US) 시장을 위한 독립적인 구성으로 다국가 지원 시스템을 구축했습니다.',
+    features: [
+      '다국가 지원 시스템 (KR/US) - 단일 코드베이스 6개 환경 관리',
+      'Resume Ordering - 테이블오더 앱 복귀 자동화',
+      'OTA 무인 업데이트 시스템 (다운로드 → 설치 → 재실행 체인)',
+      '히든 어드민 메뉴 - 제스처 기반 관리자 모드',
+      'PG/VAN 다운로드 허브 - 카드리더 자동 인식 및 에이전트 분기',
+      'Flutter-Kotlin 브리지 기반 네이티브 통합',
+    ],
     featuresDetail: [
       {
-        title: 'MQTT 기반 실시간 대기열 동기화',
+        title: '다국가 지원 시스템 구축 (KR/US)',
         description:
-          'MQTT 프로토콜을 활용하여 실시간으로 대기열 상태를 동기화하고, 자동 재연결 및 디바운싱으로 안정적인 통신을 구현했습니다.',
+          '한국과 미국 시장의 서로 다른 요구사항과 UI/UX를 단일 코드베이스로 관리하는 시스템입니다. 국가코드 기반 구성 관리로 빌드 타임에 국가를 설정하면 패키지명, UI 컴포넌트, 다운로드 센터 URL 등이 자동으로 분기됩니다.',
         technicalDetails: [
-          'MQTT autoReconnect 및 resubscribeOnAutoReconnect로 안정적인 연결 유지',
-          '1초 디바운스 타이머로 중복 알림 방지 및 UI 깜빡임 해결',
+          'CountryCode enum 기반 구성 관리 시스템 설계',
+          '빌드 타임 국가 설정으로 6개 환경 조합 자동 배포 (Dev/Staging/Prod × KR/US)',
+          'PackageNameManager로 국가별 패키지명 자동 분기',
+          'ImagePathManager로 국가별 아이콘 및 브랜딩 자산 자동 로드',
+          'UI 컴포넌트의 국가별 자동 렌더링 (ResumeOrderingButtonKR/US)',
+          '환경별 다운로드 센터 URL 및 App Store URL 동적 설정',
+          '동일 코드베이스 유지하면서 KR/US 동시 출시 성공',
         ],
       },
       {
-        title: 'OTA(Over-The-Air) 원격 업데이트 시스템',
+        title: 'Resume Ordering - 테이블오더 앱 복귀 자동화',
         description:
-          '앱 스토어 없이 원격으로 앱을 업데이트할 수 있는 시스템입니다. 버전 체크부터 다운로드, 설치까지 자동화했습니다.',
+          '사용자가 테이블오더 앱에서 벗어났을 때 원터치로 빠르게 주문 화면으로 복귀할 수 있는 기능입니다. Flutter MethodChannel과 Kotlin ActivityManager를 활용하여 테이블오더 앱의 프로세스 상태를 실시간으로 모니터링하고, 유저가 앱으로 쉽게 복귀할 수 있도록 구현하였습니다.',
         technicalDetails: [
-          'PackageInfo로 현재 버전 조회 및 서버 버전과 비교',
-          'ota_update 패키지로 APK 다운로드 및 설치',
-          '진행 상황 콜백으로 실시간 UI 업데이트 (다운로드 중, 설치 준비 중)',
+          'MethodChannel 기반 Flutter ↔ Kotlin 양방향 통신 구현',
+          'ActivityManager로 테이블오더 프로세스 실행 여부 실시간 감지',
+          'TableOrderStateService로 앱 백그라운드 실행 상태 모니터링',
+          '국가별 맞춤형 UI 디자인 (KR: 주황색 pill 버튼 / US: 반투명 dark 버튼)',
+          '중복 리스너 구독 방지 로직으로 메모리 누수 해결',
+          '히든 메뉴와의 UI 충돌 방지 로직',
+          'DeviceApps.openApp으로 즉시 복귀 구현 (복귀 시간 80% 단축)',
         ],
       },
       {
-        title: 'Clean Architecture 기반 초기 데이터 로딩',
+        title: 'OTA 무인 업데이트 시스템',
         description:
-          '앱 시작 시 필요한 모든 데이터를 체계적으로 로드하는 중앙 집중식 시스템입니다. Data-Domain-UI 레이어를 명확히 분리했습니다.',
+          '레스토랑 현장에서 수동 업데이트로 인한 운영 중단을 방지하기 위해 APK 자동 다운로드 및 Silent Installation 시스템을 구축했습니다. BroadcastReceiver 기반 이벤트 드리븐 아키텍처로 다운로드 → 설치 → 재실행 전 과정을 무인 자동화했습니다.',
         technicalDetails: [
-          '데이터 병렬 페칭을 통한 초기 로딩시간 단축',
-          '에러 핸들링 중앙화 및 확장성 향상',
+          'PackageInstaller API를 활용한 Silent Installation 구현',
+          'BroadcastReceiver로 다운로드 완료 이벤트 수신',
+          'ApkInstaller 객체로 APK 파일 스트리밍 및 세션 관리',
+          'TableOrderDownloadReceiver로 다운로드 → 설치 → 자동 앱 실행 체인 구축',
+          'FlutterDownloader + Isolate 콜백으로 진행률 UI 실시간 업데이트',
+          'device_apps 스트림으로 패키지 업데이트 이벤트 감지 및 즉시 재실행',
+          '에러 핸들링 및 로깅으로 안정성 확보',
         ],
       },
       {
-        title: 'MethodChannel 기반 네이티브 디바이스 체크',
+        title: '히든 어드민 메뉴 시스템',
         description:
-          'Flutter와 네이티브 플랫폼 간 양방향 통신으로 특정 Monki 전용 디바이스에서만 앱 실행을 허용합니다.',
+          '운영자를 위한 숨겨진 관리자 메뉴 시스템입니다. 화면 모서리 다중 탭 제스처로 노출되며, Wi-Fi 설정, 볼륨 조절, 앱 다운로드, 시스템 설정 등을 빠르게 접근할 수 있습니다. 60초 타이머와 바코드 제스처로 보안을 강화했습니다.',
         technicalDetails: [
-          'Native Build.MODEL 조회 → 서버 승인 리스트 비교 → 미승인 기기 차단',
-          '서버 검증을 통한 승인된 디바이스 목록 관리',
-          'SystemService로 네이티브 기능 캡슐화',
+          '지정된 화면 모서리 탭 카운트로 메뉴 노출 (현장 운영자 전용)',
+          '60초 자동 닫힘 타이머 및 바코드 제스처 인증',
+          'DeviceSettingMenus 컴포넌트로 시스템 인텐트 호출 및 라우팅 통합',
+          'Wi-Fi/볼륨/설정/다운로드/앱 서랍 직접 접근 기능',
+          '운영자 오류 감소 및 현장 지원 시간 단축',
+        ],
+      },
+      {
+        title: 'PG/VAN 다운로드 허브 및 카드리더 자동 인식',
+        description:
+          '카드리더 펌웨어 정보를 자동으로 감지하여 적절한 PG/VAN 에이전트 앱을 분기하고, 국가별/리더별 호스트 URL을 자동 설정합니다. 이를 통해 현장 배포 시간을 대폭 단축하고 설치 실수를 제로화했습니다.',
+        technicalDetails: [
+          '카드리더 펌웨어 문자열 기반 타입 자동 감지',
+          'Configurations 환경변수 + 카드리더 타입 조합으로 다운로드 URL 결정',
+          'PG/VAN 전용 앱 다운로드 버튼 동적 토글',
+          'URL 생성 시 호스트/스킴 정규화로 환경 교체 용이',
+          '국가/리더별 설정 자동화로 원격 지원 없이 현장 교체 가능',
+          '설치 실수 제로화 및 배포 시간 단축',
+        ],
+      },
+      {
+        title: 'Flutter-Kotlin 브리지 아키텍처',
+        description:
+          'MethodChannel과 EventChannel을 활용하여 Flutter UI 레이어와 Android 네이티브 레이어를 통합했습니다. 테이블오더 앱 상태 확인, 앱 실행, 디바이스 정보 조회 등 OS 레벨 기능을 Flutter에서 사용할 수 있도록 네이티브 상태 감시 파이프라인을 구축했습니다.',
+        technicalDetails: [
+          'MethodChannel로 Flutter → Native 단방향 통신 구현',
+          'EventChannel로 Native → Flutter 시스템 이벤트 스트림',
+          'MainActivity에 MethodChannel 통합 및 시스템 서비스 등록',
+          'SystemPropertiesProxy로 디바이스 시리얼 정보 접근',
+          'PlatformException 기반 에러 핸들링',
+          'GetIt 의존성 주입으로 서비스 레이어 분리',
+        ],
+      },
+      {
+        title: 'Android OS 프로세스 스케줄링 최적화',
+        description:
+          '장시간 실행 환경에서 앱 프로세스 우선순위 관리 및 백그라운드 동작 최적화를 수행했습니다. Android ActivityManager와 ProcessInfo를 활용한 프로세스 모니터링 강화로 장시간 가동 환경에서 홈런처 복원력을 강화했습니다.',
+        technicalDetails: [
+          'ActivityManager 기반 프로세스 모니터링',
+          'AppLifeCycle 이벤트에 따른 리스너 최적화',
+          '백그라운드-포그라운드 전환 시 리소스 관리',
+          '메모리 누수 방지 및 프로세스 생명주기 관리',
+          '장시간 운영 환경에서 앱 안정성 향상',
         ],
       },
     ],
     techStack: [
       'Flutter',
       'Dart',
-      'Riverpod',
+      'Kotlin',
+      'Provider',
+      'GoRouter',
       'GetIt',
-      'Retrofit',
-      'Dio',
-      'MQTT',
-      'Hive',
       'MethodChannel',
-      'OTA Update',
+      'EventChannel',
+      'PackageInstaller API',
+      'BroadcastReceiver',
+      'ActivityManager',
+      'device_apps',
+      'flutter_downloader',
+      'package_info_plus',
+      'app_settings',
+      'url_launcher',
+      'path_provider',
+      'barcode_widget',
     ],
     troubleShooting: [
       {
-        title: 'MQTT 연결 불안정 및 재연결 실패',
+        title: '테이블오더 재실행 지연 문제',
         problem:
-          '네트워크 불안정 시 MQTT 연결이 끊어지고, 재연결 시 구독 토픽이 유실되어 실시간 업데이트가 중단되는 문제가 발생했습니다.',
+          '업데이트 직후 앱이 백그라운드에 머무르며 주문 화면으로 복귀하지 않아 평균 10초 이상 소요되었습니다. 고객이 앱 종료로 오인하여 불편을 겪었습니다.',
         solution:
-          'connectTimeoutPeriod를 5초에서 30초로 증가시키고, autoReconnect와 resubscribeOnAutoReconnect를 활성화했습니다. 또한 onAutoReconnect 및 onAutoReconnected 콜백을 구현하여 재연결 상태를 명확히 추적하도록 개선했습니다.',
-        impact: 'MQTT 연결 안정성 95% 이상 유지, 재연결 시 토픽 유실 0건',
+          'device_apps 패키지의 ApplicationEventUpdated 이벤트를 구독하여, 패키지명에 "tableorder"가 포함된 경우 즉시 DeviceApps.openApp을 호출하도록 자동화했습니다.',
+        impact: '평균 복귀 시간 10초 → 2초로 80% 단축, 고객 UX 대폭 개선',
       },
       {
-        title: '웨이팅 취소 중복 알림으로 UI 깜빡임',
+        title: 'PG/VAN 다운로드 URL 국가별 혼선',
         problem:
-          '동일 웨이팅에 대한 취소 알림이 짧은 시간 내 여러 번 발생하여 UI가 반복적으로 갱신되고 깜빡이는 현상이 발생했습니다.',
+          '국가 코드(KR/US)와 카드리더 조합에 따라 다른 다운로드 주소를 수동으로 기억하고 입력해야 했으며, 이로 인해 설치 실수가 빈번하게 발생했습니다.',
         solution:
-          '1초 디바운스 타이머를 구현하여 1초 내 중복 호출은 무시하고 마지막 호출만 처리하도록 개선했습니다. Timer를 활용해 이전 타이머를 취소하고 새 타이머를 생성하는 방식으로 구현했습니다.',
+          'Configurations 환경변수와 카드리더 타입(펌웨어 문자열 기반)의 조합으로 다운로드 URL을 자동 결정하는 로직을 구현했습니다. DeviceSettingMenus에서 카드리더 감지 후 적절한 URL을 자동 생성합니다.',
         impact:
-          'UI 갱신 횟수 70% 감소, 사용자 경험 개선 및 불필요한 API 호출 제거',
+          '설치 실수 100% 제거, 원격 지원 없이 현장 교체 가능, 배포 시간 대폭 단축',
       },
       {
-        title: 'OTA 업데이트 메서드 네이밍 일관성 부족',
+        title: 'US 테넌트 전용 UX 요구사항 분리',
         problem:
-          'otaUpdateApp, updateApp, genVersion 등 일관성 없는 메서드명으로 인해 코드 가독성이 떨어지고 유지보수가 어려웠습니다.',
+          '동일한 런처 코드베이스에서 미국향 패키지명, 아이콘, Resume 버튼 문구를 한국향과 분리해야 했으나, 별도 프로젝트 관리는 유지보수 비용이 과도했습니다.',
         solution:
-          '메서드명을 명확한 의미를 가진 이름으로 변경했습니다: otaUpdateApp → updateAppViaOTA, genVersion → generateVersion, StatusResult → OtaUpdateResult. 각 메서드의 역할을 이름에서 명확히 알 수 있도록 개선했습니다.',
-        impact: '코드 가독성 향상, 신규 개발자 온보딩 시간 30% 단축',
-      },
-      {
-        title: '초기 데이터 로딩 로직 복잡도 및 중복 호출',
-        problem:
-          '각 화면에서 개별적으로 API를 호출하여 중복 호출이 발생하고, 로딩 순서 관리가 어려웠으며, 에러 핸들링이 분산되어 있었습니다.',
-        solution:
-          'Clean Architecture 기반 중앙 집중식 초기 데이터 로딩 시스템을 구축했습니다. AppInitialData 글로벌 모델, InitialDataRepository, GetInitialDataUseCase를 생성하여 StartupScreen에서 단일 진입점을 제공하도록 리팩토링했습니다.',
+          'CountryCode enum과 ImagePathManager를 도입하고, Resume 버튼과 메뉴 자산을 국가별로 분기하는 시스템을 구축했습니다. 빌드 타임 환경변수로 국가를 설정하면 모든 자산이 자동 교체됩니다.',
         impact:
-          'API 중복 호출 100% 제거, 에러 핸들링 중앙화, 테스트 커버리지 40% 향상',
+          '단일 코드베이스 유지하면서 KR/US 동시 출시 성공, 유지보수 비용 50% 절감',
       },
       {
-        title: '태블릿 해상도별 UI 일관성 문제',
+        title: '중복 리스너 구독으로 인한 메모리 누수',
         problem:
-          '다양한 태블릿 해상도에서 전화번호, 약관 텍스트의 간격과 크기가 일정하지 않아 가독성이 떨어지는 문제가 발생했습니다.',
+          'Resume Ordering 버튼의 상태 확인 리스너가 중복 구독되어 메모리 누수가 발생하고, UI 업데이트가 불필요하게 여러 번 실행되었습니다.',
         solution:
-          'ScreenUtil 패키지를 모든 위젯에 적용하여 designSize(1280x800)를 기준으로 반응형 UI를 구현했습니다. letterSpacing 조정, Container 백그라운드 색상 추가, border 적용 등 세부 UI를 개선했습니다.',
-        impact: '모든 태블릿 해상도에서 일관된 UI 제공, 사용자 만족도 25% 향상',
+          'HomeViewModel에서 리스너 등록 전 기존 구독 해제 로직을 추가하고, dispose 시 명시적으로 리스너를 정리하도록 개선했습니다.',
+        impact:
+          'UI 안정성 향상 및 메모리 누수 방지, 장시간 가동 환경 안정성 확보',
       },
     ],
   },

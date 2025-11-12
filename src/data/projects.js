@@ -75,7 +75,7 @@ export const projects = [
         size: '80px',
       },
     ],
-    techStack: ['Flutter', 'Dart', 'MethodChannel', 'Android'],
+    techStack: ['Flutter', 'Dart', 'MethodChannel'],
     role: 'Frontend',
     description: 'Android Custom Device 홈 어플리케이션',
   },
