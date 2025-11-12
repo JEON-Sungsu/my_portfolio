@@ -490,35 +490,23 @@ export const projectDetail = {
   'monki-pay-plugin': {
     title: 'Monki Pay Plugin',
     company: 'MonthlyKitchen',
-    period: '2023 - 2024',
-    role: ['Flutter Plugin Developer', '크로스 플랫폼 결제 플러그인 개발'],
-    team: '1명 (Plugin 개발 단독)',
-    os: 'Android, iOS, Windows, macOS, Linux',
-    deployment: 'pub.dev (Private Plugin)',
+    period: '2024.09 - 2025.11',
+    role: ['Plugin 유지, 보수', '신규 VAN 결제 연동'],
+    team: '1명 (단독)',
+    os: 'Android',
+    deployment: 'Private Plugin',
     displayType: 'full', // 'troubleshooting' | 'features' | 'full'
     description:
-      '한국의 주요 결제 대행사(VAN) 3곳(KIS, KOVAN, SMARTRO)과 연동하는 크로스 플랫폼 Flutter 결제 플러그인입니다. 카드 결제, 현금영수증 발급/취소 등 POS 단말기 결제 기능을 Flutter 앱에서 사용할 수 있도록 네이티브 브릿지를 구현했습니다. 40개 이상의 커밋으로 약 4,800+ 라인의 코드를 작성했습니다.',
+      '결제 대행사(VAN) 5곳(KIS, KOVAN, SMARTRO, KICC, KSNet)과 연동과 에이전트 설치 검증을 제공하는 Flutter 플러그인입니다. 카드 결제, 현금영수증 발급/취소 등 결제 기능을 Flutter 앱에서 사용할 수 있도록 네이티브 브릿지를 구현했습니다.',
     featuresDetail: [
       {
         title: '멀티 VAN 지원 시스템 (Multi-Payment Gateway)',
         description:
-          '3개의 주요 VAN사(KIS, KOVAN, SMARTRO) 통합 지원으로 다양한 결제 환경에 유연하게 대응합니다.',
+          '5개의 주요 VAN사 통합 지원으로 다양한 결제 환경에 유연하게 대응합니다.',
         technicalDetails: [
-          'Enum 기반 VAN 타입 관리 (MonkiPayType)',
           '플러그인 아키텍처로 각 VAN사별 독립적인 모듈 설계',
           '런타임 VAN 타입 전환 가능한 동적 초기화 시스템',
           'VAN별 네이티브 앱 패키지명 매핑 시스템 구현',
-        ],
-      },
-      {
-        title: 'TID Fallback 메커니즘 구현',
-        description:
-          '결제 승인 시 PG TID로 실패하는 경우 VAN TID로 자동 재시도하여 결제 성공률을 향상시켰습니다.',
-        technicalDetails: [
-          'approveCreditWithFallbackTid() 메서드로 TID 우선순위 리스트 처리',
-          'PG TID 실패 시 VAN TID로 자동 재시도 로직',
-          'Promise 패턴으로 비동기 결제 응답 처리',
-          'EventCallback으로 결제 진행 상태 실시간 피드백',
         ],
       },
       {
@@ -533,20 +521,9 @@ export const projectDetail = {
         ],
       },
       {
-        title: '네이티브 연동 아키텍처',
-        description:
-          'Flutter와 네이티브 플랫폼 간 양방향 통신으로 Android, iOS, Windows에서 결제 기능을 제공합니다.',
-        technicalDetails: [
-          'Android: Method Channel + Kotlin 구현',
-          'iOS: Method Channel + Swift 구현',
-          'Windows: FFI 기반 네이티브 DLL 연동',
-          'Promise 패턴으로 Kotlin 비동기 작업을 Flutter Future와 연동',
-        ],
-      },
-      {
         title: '결제 에이전트 설치 확인 기능',
         description:
-          '결제 앱이 설치되지 않은 상태에서 결제 시도 시 앱 크래시를 방지합니다.',
+          'VAN사의 결제 에이전트가 설치되지 않은 상태에서 결제 시도 시 크래시를 방지합니다.',
         technicalDetails: [
           'Android PackageManager를 사용한 패키지 존재 확인',
           'VAN별 패키지명 매핑 테이블 활용',
@@ -554,63 +531,23 @@ export const projectDetail = {
         ],
       },
     ],
+    troubleShooting: [
+      {
+        title: '지역화폐 결제',
+        problem:
+          '지역화폐 또는 민생회복지원금 같은 경우에는, PG 거래로는 승인이 되지 않는 문제',
+        solution:
+          '결제 시점에서, 상점의 결제정보(TID)를 List로 넘겨받아, PG TID 실패 시 VAN TID로 자동 재시도 로직을 구현하여 PG 우선 사용 가맹점에서도 지역화폐가 결제 가능하도록 구현',
+        impact: '지역화폐 결제 실패율 99% 감소',
+      },
+    ],
     techStack: [
       'Flutter',
       'Dart',
       'Kotlin',
-      'Swift',
       'Method Channel',
-      'FFI',
       'plugin_platform_interface',
-      'charset_converter (EUC-KR)',
       'Android API Level 31+',
-      'Retrofit',
-      'Freezed',
-    ],
-    troubleShooting: [
-      {
-        title: 'KSNET 기능 롤백 및 재구현',
-        problem:
-          'KSNET 초기 구현에서 설계 결함이 발견되었습니다. 테스트 UI와 실제 결제 로직이 강결합되어 있고, 전문 파싱 로직이 비효율적이었습니다.',
-        solution:
-          '빠른 롤백 결정 후 체계적인 재구현을 진행했습니다. 패키지명/클래스명 상수화, KSNET util 객체 분리 (전문 파싱, 금액 계산 객체), 타입 안정성 개선을 통해 견고한 구조로 재설계했습니다.',
-        impact:
-          '코드 품질 향상, 유지보수성 개선, 기술 부채 최소화, 현금영수증 기능 안정적 제공',
-      },
-      {
-        title: '카드 리딩 타임아웃 최적화',
-        problem:
-          'KIS 카드 리딩 시 20초 타임아웃으로 결제 실패가 빈번하게 발생했습니다.',
-        solution:
-          '타임아웃 시간을 20초 → 60초로 증가시키고, 하드코딩된 값을 상수로 분리하여 유지보수성을 향상시켰습니다. 결제/취소 모두 동일한 타임아웃을 적용하여 일관성을 확보했습니다.',
-        impact: '카드 리딩 성공률 향상, 사용자 경험 개선, 결제 실패율 감소',
-      },
-      {
-        title: 'Android 12+ 패키지 가시성 제한 문제',
-        problem:
-          'Android 11 (API 30+)부터 패키지 가시성 제한 정책이 적용되어 외부 결제 앱 설치 여부 확인이 불가능했습니다.',
-        solution:
-          'AndroidManifest.xml에 <queries> 태그를 추가하여 각 VAN사의 패키지명을 명시적으로 선언했습니다. checkPayAgentInstalled() 메서드를 구현하여 결제 전 에이전트 설치 여부를 확인하도록 개선했습니다.',
-        impact: 'Android 12+ 기기에서 정상 동작, 앱 크래시 방지, 사전 안내 가능',
-      },
-      {
-        title: '코드 품질 개선 시리즈',
-        problem:
-          '변수명 일관성 부족 (snake_case 혼용), 미사용 코드 존재, 주석 부족 등으로 코드 가독성과 유지보수성이 떨어졌습니다.',
-        solution:
-          '체계적인 리팩토링을 진행했습니다: snake_case → camelCase 네이밍 통일, 미사용 import 및 데드 코드 제거, 핵심 유틸리티 클래스 주석 추가, 의미있는 클래스명으로 변경했습니다.',
-        impact:
-          '코드 가독성 향상, 신규 개발자 온보딩 시간 단축, 유지보수 비용 절감',
-      },
-      {
-        title: '테스트 UI 개선 및 자동화',
-        problem:
-          'VAN별 테스트가 수작업으로 진행되어 효율성이 떨어지고, 결제 후 결과값 수동 입력으로 인한 오류가 발생했습니다.',
-        solution:
-          'VAN별 독립적인 테스트 뷰 제공 (kis_view.dart, kovan_view.dart, smartro_view.dart), 실시간 금액 계산 (부가세 자동 계산), 결제 결과 자동 폼 입력 (승인번호, 승인일자, VAN Key), 체계적인 테스트 시나리오 UI 구축',
-        impact:
-          '테스트 시간 50% 단축, 수동 입력 오류 제거, 반복 테스트 용이성 향상',
-      },
     ],
   },
 };
