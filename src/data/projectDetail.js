@@ -384,7 +384,7 @@ export const projectDetail = {
     company: 'MonthlyKitchen',
     period: '2024.10 - 2025.06',
     role: [
-      'Flutter Frontend 단독 개발',
+      'Flutter Frontend 유지, 보수 및 기능 개선',
       '홈런처 UX 설계 및 히든 어드민 워크플로우 구축',
       'Tableorder 업데이트 자동화 파이프라인 구축',
     ],
@@ -404,34 +404,6 @@ export const projectDetail = {
     ],
     featuresDetail: [
       {
-        title: '다국가 지원 시스템 구축 (KR/US)',
-        description:
-          '한국과 미국 시장의 서로 다른 요구사항과 UI/UX를 단일 코드베이스로 관리하는 시스템입니다. 국가코드 기반 구성 관리로 빌드 타임에 국가를 설정하면 패키지명, UI 컴포넌트, 다운로드 센터 URL 등이 자동으로 분기됩니다.',
-        technicalDetails: [
-          'CountryCode enum 기반 구성 관리 시스템 설계',
-          '빌드 타임 국가 설정으로 6개 환경 조합 자동 배포 (Dev/Staging/Prod × KR/US)',
-          'PackageNameManager로 국가별 패키지명 자동 분기',
-          'ImagePathManager로 국가별 아이콘 및 브랜딩 자산 자동 로드',
-          'UI 컴포넌트의 국가별 자동 렌더링 (ResumeOrderingButtonKR/US)',
-          '환경별 다운로드 센터 URL 및 App Store URL 동적 설정',
-          '동일 코드베이스 유지하면서 KR/US 동시 출시 성공',
-        ],
-      },
-      {
-        title: 'Resume Ordering - 테이블오더 앱 복귀 자동화',
-        description:
-          '사용자가 테이블오더 앱에서 벗어났을 때 원터치로 빠르게 주문 화면으로 복귀할 수 있는 기능입니다. Flutter MethodChannel과 Kotlin ActivityManager를 활용하여 테이블오더 앱의 프로세스 상태를 실시간으로 모니터링하고, 유저가 앱으로 쉽게 복귀할 수 있도록 구현하였습니다.',
-        technicalDetails: [
-          'MethodChannel 기반 Flutter ↔ Kotlin 양방향 통신 구현',
-          'ActivityManager로 테이블오더 프로세스 실행 여부 실시간 감지',
-          'TableOrderStateService로 앱 백그라운드 실행 상태 모니터링',
-          '국가별 맞춤형 UI 디자인 (KR: 주황색 pill 버튼 / US: 반투명 dark 버튼)',
-          '중복 리스너 구독 방지 로직으로 메모리 누수 해결',
-          '히든 메뉴와의 UI 충돌 방지 로직',
-          'DeviceApps.openApp으로 즉시 복귀 구현 (복귀 시간 80% 단축)',
-        ],
-      },
-      {
         title: 'OTA 무인 업데이트 시스템',
         description:
           '레스토랑 현장에서 수동 업데이트로 인한 운영 중단을 방지하기 위해 APK 자동 다운로드 및 Silent Installation 시스템을 구축했습니다. BroadcastReceiver 기반 이벤트 드리븐 아키텍처로 다운로드 → 설치 → 재실행 전 과정을 무인 자동화했습니다.',
@@ -439,10 +411,28 @@ export const projectDetail = {
           'PackageInstaller API를 활용한 Silent Installation 구현',
           'BroadcastReceiver로 다운로드 완료 이벤트 수신',
           'ApkInstaller 객체로 APK 파일 스트리밍 및 세션 관리',
-          'TableOrderDownloadReceiver로 다운로드 → 설치 → 자동 앱 실행 체인 구축',
-          'FlutterDownloader + Isolate 콜백으로 진행률 UI 실시간 업데이트',
-          'device_apps 스트림으로 패키지 업데이트 이벤트 감지 및 즉시 재실행',
-          '에러 핸들링 및 로깅으로 안정성 확보',
+        ],
+      },
+      {
+        title: '테이블오더 앱 복귀 자동화',
+        description:
+          '사용자가 테이블오더 앱에서 벗어났을 때 원터치로 빠르게 주문 화면으로 복귀할 수 있는 기능입니다. Flutter MethodChannel과 Kotlin ActivityManager를 활용하여 테이블오더 앱의 프로세스 상태를 실시간으로 모니터링하고, 유저가 앱으로 쉽게 복귀할 수 있도록 구현하였습니다.',
+        technicalDetails: [
+          'MethodChannel 기반 Flutter ↔ Kotlin 양방향 통신 구현',
+          'ActivityManager로 테이블오더 프로세스 실행 여부 실시간 감지',
+          '중복 리스너 구독 방지 로직으로 메모리 누수 해결',
+          '히든 메뉴와의 UI 충돌 방지 로직',
+        ],
+      },
+      {
+        title: '다국가 지원 시스템 구축 (KR/US)',
+        description:
+          '한국과 미국 시장의 서로 다른 요구사항과 UI/UX를 단일 코드베이스로 관리하는 시스템입니다. 국가코드 기반 구성 관리로 빌드 타임에 국가를 설정하면 패키지명, UI 컴포넌트, 다운로드 센터 URL 등이 자동으로 분기됩니다.',
+        technicalDetails: [
+          'CountryCode enum 기반 구성 관리 시스템 설계',
+          '빌드 타임 국가 설정으로 6개 환경 조합 자동 배포 (Dev/Staging/Prod × KR/US)',
+          'PackageNameManager로 국가별 패키지명 자동 분기',
+          '동일 코드베이스 유지하면서 KR/US 동시 출시 성공',
         ],
       },
       {
@@ -454,20 +444,17 @@ export const projectDetail = {
           '60초 자동 닫힘 타이머 및 바코드 제스처 인증',
           'DeviceSettingMenus 컴포넌트로 시스템 인텐트 호출 및 라우팅 통합',
           'Wi-Fi/볼륨/설정/다운로드/앱 서랍 직접 접근 기능',
-          '운영자 오류 감소 및 현장 지원 시간 단축',
         ],
       },
       {
         title: 'PG/VAN 다운로드 허브 및 카드리더 자동 인식',
         description:
-          '카드리더 펌웨어 정보를 자동으로 감지하여 적절한 PG/VAN 에이전트 앱을 분기하고, 국가별/리더별 호스트 URL을 자동 설정합니다. 이를 통해 현장 배포 시간을 대폭 단축하고 설치 실수를 제로화했습니다.',
+          'Sysmtem API를 사용하여 카드리더 펌웨어 정보를 감지하여 적절한 PG/VAN 에이전트 앱을 분기하고, 디바이스별 Private Store 호스트 URL을 자동 설정합니다.',
         technicalDetails: [
-          '카드리더 펌웨어 문자열 기반 타입 자동 감지',
+          '카드리더 펌웨어 문자열 기반 타입 감지',
           'Configurations 환경변수 + 카드리더 타입 조합으로 다운로드 URL 결정',
           'PG/VAN 전용 앱 다운로드 버튼 동적 토글',
           'URL 생성 시 호스트/스킴 정규화로 환경 교체 용이',
-          '국가/리더별 설정 자동화로 원격 지원 없이 현장 교체 가능',
-          '설치 실수 제로화 및 배포 시간 단축',
         ],
       },
       {
@@ -475,24 +462,10 @@ export const projectDetail = {
         description:
           'MethodChannel과 EventChannel을 활용하여 Flutter UI 레이어와 Android 네이티브 레이어를 통합했습니다. 테이블오더 앱 상태 확인, 앱 실행, 디바이스 정보 조회 등 OS 레벨 기능을 Flutter에서 사용할 수 있도록 네이티브 상태 감시 파이프라인을 구축했습니다.',
         technicalDetails: [
-          'MethodChannel로 Flutter → Native 단방향 통신 구현',
+          'MethodChannel로 Flutter → Native 통신 구현',
           'EventChannel로 Native → Flutter 시스템 이벤트 스트림',
           'MainActivity에 MethodChannel 통합 및 시스템 서비스 등록',
           'SystemPropertiesProxy로 디바이스 시리얼 정보 접근',
-          'PlatformException 기반 에러 핸들링',
-          'GetIt 의존성 주입으로 서비스 레이어 분리',
-        ],
-      },
-      {
-        title: 'Android OS 프로세스 스케줄링 최적화',
-        description:
-          '장시간 실행 환경에서 앱 프로세스 우선순위 관리 및 백그라운드 동작 최적화를 수행했습니다. Android ActivityManager와 ProcessInfo를 활용한 프로세스 모니터링 강화로 장시간 가동 환경에서 홈런처 복원력을 강화했습니다.',
-        technicalDetails: [
-          'ActivityManager 기반 프로세스 모니터링',
-          'AppLifeCycle 이벤트에 따른 리스너 최적화',
-          '백그라운드-포그라운드 전환 시 리소스 관리',
-          '메모리 누수 방지 및 프로세스 생명주기 관리',
-          '장시간 운영 환경에서 앱 안정성 향상',
         ],
       },
     ],
@@ -508,57 +481,13 @@ export const projectDetail = {
       'PackageInstaller API',
       'BroadcastReceiver',
       'ActivityManager',
-      'device_apps',
-      'flutter_downloader',
-      'package_info_plus',
-      'app_settings',
-      'url_launcher',
-      'path_provider',
-      'barcode_widget',
-    ],
-    troubleShooting: [
-      {
-        title: '테이블오더 재실행 지연 문제',
-        problem:
-          '업데이트 직후 앱이 백그라운드에 머무르며 주문 화면으로 복귀하지 않아 평균 10초 이상 소요되었습니다. 고객이 앱 종료로 오인하여 불편을 겪었습니다.',
-        solution:
-          'device_apps 패키지의 ApplicationEventUpdated 이벤트를 구독하여, 패키지명에 "tableorder"가 포함된 경우 즉시 DeviceApps.openApp을 호출하도록 자동화했습니다.',
-        impact: '평균 복귀 시간 10초 → 2초로 80% 단축, 고객 UX 대폭 개선',
-      },
-      {
-        title: 'PG/VAN 다운로드 URL 국가별 혼선',
-        problem:
-          '국가 코드(KR/US)와 카드리더 조합에 따라 다른 다운로드 주소를 수동으로 기억하고 입력해야 했으며, 이로 인해 설치 실수가 빈번하게 발생했습니다.',
-        solution:
-          'Configurations 환경변수와 카드리더 타입(펌웨어 문자열 기반)의 조합으로 다운로드 URL을 자동 결정하는 로직을 구현했습니다. DeviceSettingMenus에서 카드리더 감지 후 적절한 URL을 자동 생성합니다.',
-        impact:
-          '설치 실수 100% 제거, 원격 지원 없이 현장 교체 가능, 배포 시간 대폭 단축',
-      },
-      {
-        title: 'US 테넌트 전용 UX 요구사항 분리',
-        problem:
-          '동일한 런처 코드베이스에서 미국향 패키지명, 아이콘, Resume 버튼 문구를 한국향과 분리해야 했으나, 별도 프로젝트 관리는 유지보수 비용이 과도했습니다.',
-        solution:
-          'CountryCode enum과 ImagePathManager를 도입하고, Resume 버튼과 메뉴 자산을 국가별로 분기하는 시스템을 구축했습니다. 빌드 타임 환경변수로 국가를 설정하면 모든 자산이 자동 교체됩니다.',
-        impact:
-          '단일 코드베이스 유지하면서 KR/US 동시 출시 성공, 유지보수 비용 50% 절감',
-      },
-      {
-        title: '중복 리스너 구독으로 인한 메모리 누수',
-        problem:
-          'Resume Ordering 버튼의 상태 확인 리스너가 중복 구독되어 메모리 누수가 발생하고, UI 업데이트가 불필요하게 여러 번 실행되었습니다.',
-        solution:
-          'HomeViewModel에서 리스너 등록 전 기존 구독 해제 로직을 추가하고, dispose 시 명시적으로 리스너를 정리하도록 개선했습니다.',
-        impact:
-          'UI 안정성 향상 및 메모리 누수 방지, 장시간 가동 환경 안정성 확보',
-      },
     ],
   },
   'monki-pay-plugin': {
     title: 'Monki Pay Plugin',
     company: 'MonthlyKitchen',
     period: '2024.09 - 2025.11',
-    role: ['Plugin 유지, 보수', '신규 VAN 결제 연동'],
+    role: ['Plugin 유지, 보수', '신규 VAN 결제 연동 (KSNet, KICC, Smartro)'],
     team: '1명 (단독)',
     os: 'Android',
     deployment: 'Private Plugin',
@@ -588,7 +517,7 @@ export const projectDetail = {
         ],
       },
       {
-        title: '결제 에이전트 설치 확인 기능',
+        title: '결제 에이전트 설치 검증 기능',
         description:
           'VAN사의 결제 에이전트가 설치되지 않은 상태에서 결제 시도 시 크래시를 방지합니다.',
         technicalDetails: [
@@ -615,6 +544,66 @@ export const projectDetail = {
       'Method Channel',
       'plugin_platform_interface',
       'Android API Level 31+',
+    ],
+  },
+  'monki-order': {
+    title: 'Monki Order',
+    company: 'MonthlyKitchen',
+    period: '2024.11 - 현재',
+    role: [
+      'React Native Frontend 유지, 보수 및 기능 개선',
+      'Google Play/App Store 정책 대응',
+      '성능 최적화 및 사용자 경험 개선',
+    ],
+    team: '2명 (FE 1, BE 1)',
+    os: 'Android, iOS',
+    deployment: 'Play Store, App Store, Fastlane',
+    displayType: 'features', // 'troubleshooting' | 'features' | 'full'
+    description:
+      '먼슬리키친 공유주방 음식 배달 및 픽업 서비스 앱입니다. React Native 0.70 기반 크로스플랫폼 개발로 iOS/Android를 동시 지원하며, 소셜 로그인, MQTT 실시간 주문 추적, 다중 결제 시스템 등 모던 모바일 앱 기술 스택을 활용한 배달 플랫폼입니다.',
+    featuresDetail: [
+      {
+        title: 'MQTT 기반 실시간 주문 추적',
+        description:
+          'MQTT 프로토콜을 활용하여 주문 접수부터 배달 완료까지 실시간 상태를 추적하고 푸시 알림을 전송합니다.',
+        technicalDetails: [
+          '주문 상태 변경 시 실시간 UI 업데이트',
+          'Firebase Messaging과 연동하여 백그라운드 푸시 알림',
+          '연결 끊김 시 자동 재연결 및 메시지 큐 관리',
+        ],
+      },
+      {
+        title: '성능 최적화 아키텍처',
+        description:
+          '대용량 리스트와 이미지 처리 최적화로 부드러운 사용자 경험을 제공합니다.',
+        technicalDetails: [
+          'lash-list로 대용량 메뉴 리스트 렌더링 최적화',
+          'react-native-fast-image로 이미지 캐싱 및 로딩 최적화',
+          'React.memo, useMemo, useCallback으로 불필요한 리렌더링 방지',
+        ],
+      },
+      {
+        title: 'Fastlane 자동 배포 파이프라인',
+        description:
+          'iOS/Android 빌드 및 배포 프로세스를 자동화하여 효율적인 릴리즈 관리를 구현했습니다.',
+        technicalDetails: [
+          'Fastlane으로 Android APK/AAB, iOS IPA 빌드 자동화',
+          'Google Play Store, App Store 자동 배포',
+          'TestFlight 베타 배포 자동화',
+          '환경별 빌드 변형 관리 (Debug/Staging/Release)',
+        ],
+      },
+    ],
+    techStack: [
+      'React Native 0.70',
+      'TypeScript',
+      'React Navigation 6.x',
+      'TailwindCSS (tailwind-rn)',
+      'Firebase (Analytics, Messaging)',
+      'Fastlane',
+      'MQTT',
+      'Sentry',
+      'Kakao/Naver/Apple Login',
     ],
   },
 };

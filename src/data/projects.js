@@ -94,4 +94,19 @@ export const projects = [
     role: 'Frontend',
     description: '통합 결제 모듈 플러그인',
   },
+  {
+    slug: 'monki-order',
+    title: 'Monki Order',
+    badge: 'Reactnative',
+    icons: [
+      {
+        path: '/assets/icons/ic_mobile.svg',
+        label: 'mobile App',
+        size: '80px',
+      },
+    ],
+    techStack: ['Reactnative', 'Typescript', 'Zustand', 'Websocket'],
+    role: 'Frontend',
+    description: '먼키 공유주방 배달 및 주문 어플리케이션',
+  },
 ];
